@@ -14,6 +14,10 @@ claim and it's checked live against a real research corpus - **validated**,
 the hackathon's full 5-tool mandated stack, wired end-to-end and verified
 live against real APIs throughout (not mocked).
 
+
+
+![Uploading image.png…]()
+
 ## Try it
 
 ```
