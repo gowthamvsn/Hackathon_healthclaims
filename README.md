@@ -1,5 +1,12 @@
 # Self-Improving Research Assistant — Health Claims Verification
 
+## Problem
+
+People see a lot of health claims on public websites, and it's hard to
+validate them — many users take these unverified statements as fact. This
+project finds health claims (typed, or selected from a page), validates them
+against real research literature, and cites the source.
+
 Built for the **AWS Builder Loft SF** hackathon (Sep 11, 2026) — "Data and AI
 Hackathon: From Memory to Muscle Memory." Type or select any health/nutrition
 claim and it's checked live against a real research corpus — **validated**,
@@ -27,7 +34,11 @@ uvicorn agent.api:app --host 0.0.0.0 --port 8000
 | Memory storage & serving | **HydraDB** | Durable store + hybrid graph/vector recall of related papers; also the source-of-truth allowlist for the grounding guard below | ✅ Live |
 | Insight / live query | **hotdata.dev** | Logs every check as a row, runs a real SQL trend aggregate (`group by topic`) | ✅ Live — see `/trends` |
 | Motion / orchestration | **RocketRide.ai** | Decides the next action (file/flag/log) and **executes it inside a real hosted pipeline** (a `webhook` → `tool_python` sandbox node, built and validated programmatically via the SDK, not the dashboard) | ✅ Live, `executed_via: rocketride_pipeline` |
-| Muscle memory | **Modiqo.ai (Rote)** | The live app uses a local replay-ledger cache modeled on Rote's concept (real, working, but not the actual product — labeled honestly in the UI as "local muscle-memory cache"). Separately, 2 real Rote Community Plays are published under the `gowtham-healthclaims` handle for eligibility, e.g. `https://play.modiqo.ai/gowtham-healthclaims/health-claim-check@0.1.0` | ⚠️ Disclosed split — see note above |
+| Muscle memory | **Modiqo.ai (Rote)** | The live app uses a local replay-ledger cache modeled on Rote's concept (real, working, but not the actual product — labeled honestly in the UI as "local muscle-memory cache"). Separately, 2 real Rote Community Plays are published for eligibility (links below) | ⚠️ Disclosed split — see note above |
+
+Published Rote Community Plays:
+- https://play.modiqo.ai/gowtham-healthclaims/health-claim-check@0.1.0
+- https://play.modiqo.ai/gowtham-healthclaims/health-claim-grounding-check@0.0.1
 
 A known, disclosed limitation worth stating plainly: Cognee's `GRAPH_COMPLETION`
 is an LLM completion over the graph, not strict retrieval-only — for
