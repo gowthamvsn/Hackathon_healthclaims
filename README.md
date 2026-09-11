@@ -4,7 +4,7 @@
 People see a lot of health claims in public websites and it is hard to validate them. So many of the users follow these unverified health statements as truths. So a product is built that finds the health claims from public websites, validates them against literature and also cites them. 
 
 
-Built for the **AWS Builder Loft SF** hackathon (Sep 11, 2026) — "Data and AI
+Built for the **AWS Builder Loft SF** hackathon (Sep 11, 2026): "Data and AI
 Hackathon: From Memory to Muscle Memory." This is the "Self-Improving
 Research Assistant" idea from the official builder guide: extract claims,
 sources, and contradictions from papers/articles; persist the evolving
@@ -37,11 +37,11 @@ Python code works with or without it; see `muscle_memory/rote_hook.py`.
 ## Repo layout
 
 ```
-memory_layer/          Cognee — add/cognify/search
-storage_layer/          HydraDB — ingest/recall the durable graph
-query_layer/            hotdata.dev — ad-hoc SQL analytics
-orchestration_layer/    RocketRide — decide + act
-muscle_memory/          Modiqo Rote — capture + replay
+memory_layer/          Cognee - add/cognify/search
+storage_layer/          HydraDB - ingest/recall the durable graph
+query_layer/            hotdata.dev - ad-hoc SQL analytics
+orchestration_layer/    RocketRide - decide + act
+muscle_memory/          Modiqo Rote - capture + replay
 agent/pipeline.py       ties all five layers together
 scripts/                one smoke test per layer + a runner
 benchmark/              the compounding-proof demo (run 1 vs run 3)
