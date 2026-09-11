@@ -69,10 +69,6 @@ data/pipelines/         research_finding.pipe - the real RocketRide pipeline def
 ```
 Results:
 
-Not a health claim - so it doesnt highlight. 
-
-<img width="417" height="896" alt="image" src="https://github.com/user-attachments/assets/7459da7d-500e-4b9f-8242-aba4fee26031" />
-
 
 
 The below one is a health claim, so it shows the option to validate/contradict
