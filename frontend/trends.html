@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Insight — hotdata.dev</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --card-bg: #ffffff;
+    --border: #e2e5ea;
+    --text: #1a1d23;
+    --text-muted: #6b7280;
+    --validated: #1a7f4b;
+    --validated-bg: #e6f6ed;
+    --contradicted: #b3261e;
+    --contradicted-bg: #fdecea;
+    --no_proof: #5b6270;
+    --no_proof-bg: #eef0f3;
+    --accent: #3454d1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px 20px 80px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  header { margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .subtitle { color: var(--text-muted); font-size: 13px; }
+  .nav-link { font-size: 13px; color: var(--accent); text-decoration: none; }
+  .db-note {
+    font-size: 12px; color: var(--text-muted); margin-top: 12px;
+    padding: 10px 12px; background: #eef1fb; border-radius: 8px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+  }
+  .refresh-btn {
+    background: var(--accent); color: white; border: none; border-radius: 6px;
+    padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 20px 0; }
+  .card {
+    border-radius: 10px; padding: 16px; border: 1px solid var(--border);
+  }
+  .card .n { font-size: 32px; font-weight: 800; }
+  .card .label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; margin-top: 4px; }
+  .card.validated { background: var(--validated-bg); color: var(--validated); }
+  .card.contradicted { background: var(--contradicted-bg); color: var(--contradicted); }
+  .card.no_proof { background: var(--no_proof-bg); color: var(--no_proof); }
+  section { margin-top: 28px; }
+  h2 { font-size: 15px; margin: 0 0 10px; }
+  table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  th, td { text-align: left; padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); }
+  th { background: #f0f2f7; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 11px; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+  .badge.validated { background: var(--validated-bg); color: var(--validated); }
+  .badge.contradicted { background: var(--contradicted-bg); color: var(--contradicted); }
+  .badge.no_proof { background: var(--no_proof-bg); color: var(--no_proof); }
+  .empty { color: var(--text-muted); font-size: 13px; padding: 16px; text-align: center; }
+  .sql-note {
+    margin-top: 8px; font-size: 12px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, monospace;
+    background: #f0f2f7; padding: 8px 10px; border-radius: 6px; overflow-x: auto;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>📊 Insight — hotdata.dev</h1>
+      <div class="subtitle">Live SQL read straight from the hotdata database our checks write to.</div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:center;">
+      <a class="nav-link" href="/">Manual tool</a>
+      <a class="nav-link" href="/feed">Feed</a>
+      <button class="refresh-btn" id="refresh-btn">↻ Refresh</button>
+    </div>
+  </header>
+
+  <div class="db-note" id="db-note">Loading database info...</div>
+
+  <div class="cards" id="cards"></div>
+
+  <section>
+    <h2>Trend query</h2>
+    <div class="sql-note">select topic, count(*) as claim_count, avg(confidence) as avg_confidence from claims group by topic order by claim_count desc</div>
+  </section>
+
+  <section>
+    <h2>Recent claims</h2>
+    <div class="sql-note">select paper_id, claim, topic, confidence from claims limit 50</div>
+    <div id="claims-table"></div>
+  </section>
+</div>
+
+<script>
+const VERDICT_LABEL = { validated: "Validated", contradicted: "Contradicted", no_proof: "No proof" };
+
+function escapeHtml(s) {
+  const div = document.createElement("div");
+  div.textContent = s ?? "";
+  return div.innerHTML;
+}
+
+async function load() {
+  document.getElementById("db-note").textContent = "Loading...";
+  try {
+    const res = await fetch("/api/trends");
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+
+    document.getElementById("db-note").innerHTML =
+      `database: <strong>${escapeHtml(data.database_description)}</strong> &nbsp;·&nbsp; id: ${escapeHtml(data.database_id)}`;
+
+    const cardsEl = document.getElementById("cards");
+    const rows = data.topic_summary.rows || [];
+    if (rows.length === 0) {
+      cardsEl.innerHTML = `<div class="empty">No claims logged yet — run a check on the manual tool or feed page.</div>`;
+    } else {
+      cardsEl.innerHTML = rows.map(([topic, count, avgConf]) => `
+        <div class="card ${topic}">
+          <div class="n">${count}</div>
+          <div class="label">${VERDICT_LABEL[topic] || topic} · avg conf ${Number(avgConf).toFixed(2)}</div>
+        </div>
+      `).join("");
+    }
+
+    const claimsRows = data.recent_claims.rows || [];
+    const tableEl = document.getElementById("claims-table");
+    if (claimsRows.length === 0) {
+      tableEl.innerHTML = `<div class="empty">Nothing to show yet.</div>`;
+    } else {
+      tableEl.innerHTML = `
+        <table>
+          <thead><tr><th>Claim</th><th>Verdict</th><th>Confidence</th></tr></thead>
+          <tbody>
+            ${claimsRows.map(([paperId, claim, topic, confidence]) => `
+              <tr>
+                <td>${escapeHtml(claim)}</td>
+                <td><span class="badge ${topic}">${VERDICT_LABEL[topic] || topic}</span></td>
+                <td>${Number(confidence).toFixed(2)}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+  } catch (err) {
+    document.getElementById("db-note").textContent = `Error: ${err.message}`;
+  }
+}
+
+document.getElementById("refresh-btn").addEventListener("click", load);
+load();
+</script>
+</body>
+</html>

@@ -18,6 +18,7 @@ from agent.config import require_env
 
 CLAIMS_DB_NAME = "research_claims"
 CLAIMS_TABLE = "claims"
+CLAIMS_DB_DESCRIPTION = "Research assistant claim metadata (hackathon demo)"
 
 
 def make_client() -> HotdataClient:
@@ -27,17 +28,22 @@ def make_client() -> HotdataClient:
 
 
 def ensure_claims_table(client: HotdataClient):
-    """Idempotent: create the scratch analytics DB/table for claim metadata
-    on first run; later runs just reuse it (that reuse is part of the
-    compounding story — no schema/DDL cost on repeat runs)."""
-    try:
-        db = client.create_managed_database(
-            "Research assistant claim metadata (hackathon demo)",
-            tables=[CLAIMS_TABLE],
-        )
-    except Exception:
-        db = CLAIMS_DB_NAME
-    return db
+    """Idempotent: reuse the scratch analytics DB/table for claim metadata if
+    one already exists, create it only on genuine first run.
+
+    This used to call create_managed_database() unconditionally on every
+    process start, which — since the API happily creates a new database
+    every time rather than erroring on a duplicate name — silently
+    fragmented our data across a new database on every server restart
+    (confirmed live: 13 separate databases had accumulated by the time this
+    was caught, each holding a handful of rows instead of one growing
+    table). Real bug, not a hypothetical: fixed by checking
+    list_managed_databases() for an existing match first.
+    """
+    for db in client.list_managed_databases():
+        if db.description == CLAIMS_DB_DESCRIPTION:
+            return db
+    return client.create_managed_database(CLAIMS_DB_DESCRIPTION, tables=[CLAIMS_TABLE])
 
 
 def load_claims(client: HotdataClient, database, rows: list[dict]):
@@ -67,4 +73,13 @@ def topic_trend_query(client: HotdataClient, database, topic_like: str = "%"):
         group by topic
         order by claim_count desc
     """
+    return client.execute_sql(sql, database=database)
+
+
+def recent_claims_query(client: HotdataClient, database, limit: int = 50):
+    """Raw row listing for a dashboard view — no timestamp column exists in
+    this scratch table, so this is simply "everything logged so far",
+    newest-insert-order not guaranteed by SQL semantics but fine for a
+    demo view."""
+    sql = f"select paper_id, claim, topic, confidence from {CLAIMS_TABLE} limit {int(limit)}"
     return client.execute_sql(sql, database=database)

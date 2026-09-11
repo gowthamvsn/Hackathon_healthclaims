@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from agent.claim_checker import ClaimChecker
+from query_layer import hotdata_query
 
 FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 
@@ -50,6 +51,23 @@ async def health():
     return {"status": "ok"}
 
 
+@app.get("/api/trends")
+async def trends():
+    """Live SQL read straight from hotdata.dev — bypasses needing to
+    navigate hotdata's own dashboard for the demo. Same client/database the
+    checker already writes to (get_checker() lazily creates it on first
+    use, same as /api/check)."""
+    checker = get_checker()
+    topic_summary = hotdata_query.topic_trend_query(checker.hotdata, checker.hotdata_db)
+    recent = hotdata_query.recent_claims_query(checker.hotdata, checker.hotdata_db)
+    return {
+        "database_id": checker.hotdata_db.id,
+        "database_description": checker.hotdata_db.description,
+        "topic_summary": {"columns": topic_summary.columns, "rows": topic_summary.rows},
+        "recent_claims": {"columns": recent.columns, "rows": recent.rows},
+    }
+
+
 if FRONTEND_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
 
@@ -60,3 +78,7 @@ if FRONTEND_DIR.exists():
     @app.get("/feed")
     async def feed():
         return FileResponse(str(FRONTEND_DIR / "feed.html"))
+
+    @app.get("/trends")
+    async def trends_page():
+        return FileResponse(str(FRONTEND_DIR / "trends.html"))

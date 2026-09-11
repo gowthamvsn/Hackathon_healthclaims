@@ -1993,5 +1993,411 @@
       }
     },
     "recorded_at": "2026-09-11T21:20:12Z"
+  },
+  "00b748b289d089de": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "does eating spicy food cause stomach ulcers?"
+    ],
+    "result": {
+      "statement": "Does eating spicy food cause stomach ulcers?",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies evaluating spicy food consumption and stomach ulcer risk.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Does monosodium glutamate really cause headache?: a systematic review of human studies.",
+          "relevancy_score": 0.4447809964795879
+        },
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.4202208088302989
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            6,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "log_unverified_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Does eating spicy food cause stomach ulcers?",
+            "verdict": "no_proof",
+            "action": "log_unverified_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "no_proof",
+                  6,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T21:35:30Z"
+  },
+  "a1193f88f4b67960": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "does listening to classical music while sleeping improve memory consolidation?"
+    ],
+    "result": {
+      "statement": "Does listening to classical music while sleeping improve memory consolidation?",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing classical music during sleep and its effect on memory consolidation.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Effect of breakfast on weight and energy intake: systematic review and meta-analysis of randomised controlled trials.",
+          "relevancy_score": 0.37659190165127066
+        },
+        {
+          "title": "Association of coffee drinking with total and cause-specific mortality.",
+          "relevancy_score": 0.3700830976483695
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            7,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "log_unverified_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Does listening to classical music while sleeping improve memory consolidation?",
+            "verdict": "no_proof",
+            "action": "log_unverified_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "no_proof",
+                  7,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T21:37:11Z"
+  },
+  "c9562da49bf0e5a3": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "does drinking green tea prevent kidney stones?"
+    ],
+    "result": {
+      "statement": "Does drinking green tea prevent kidney stones?",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies evaluating green tea consumption and kidney stone risk.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Association of coffee drinking with total and cause-specific mortality.",
+          "relevancy_score": 0.42003954098124835
+        },
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.41643679228264574
+        },
+        {
+          "title": "Effect of breakfast on weight and energy intake: systematic review and meta-analysis of randomised controlled trials.",
+          "relevancy_score": 0.4148583905361087
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            8,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "log_unverified_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Does drinking green tea prevent kidney stones?",
+            "verdict": "no_proof",
+            "action": "log_unverified_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "no_proof",
+                  8,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T21:38:19Z"
+  },
+  "435b46b3157354bf": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "vitamin d pills prevent heart disease."
+    ],
+    "result": {
+      "statement": "Vitamin D pills prevent heart disease.",
+      "verdict": "contradicted",
+      "explanation": "In the VITAL randomized trial, vitamin D supplementation did not reduce major cardiovascular events (hazard ratio\u202f0.97, 95%\u202fCI\u202f0.85\u20131.12).",
+      "source": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease",
+      "related_papers": [
+        {
+          "title": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease.",
+          "relevancy_score": 0.8450481401307971
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "flag_contradicted_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Vitamin D pills prevent heart disease.",
+            "verdict": "contradicted",
+            "action": "flag_contradicted_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "contradicted",
+                  1,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T21:43:11Z"
+  },
+  "eb24255eea7414cb": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "coffee drinking is linked to a lower risk of death."
+    ],
+    "result": {
+      "statement": "Coffee drinking is linked to a lower risk of death.",
+      "verdict": "validated",
+      "explanation": "Multivariate\u2011adjusted hazard ratios showed a modest inverse trend with coffee intake (e.g., HR\u202f0.88 for 4\u20115 cups/day in men and 0.84 in women, P<0.001), indicating lower mortality.",
+      "source": "Association of coffee drinking with total and cause-specific mortality",
+      "related_papers": [
+        {
+          "title": "Association of coffee drinking with total and cause-specific mortality.",
+          "relevancy_score": 0.6565083480022444
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "file_validated_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Coffee drinking is linked to a lower risk of death.",
+            "verdict": "validated",
+            "action": "file_validated_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "validated",
+                  1,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T21:50:06Z"
+  },
+  "2107c27e02987376": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "saturated fat clogs your arteries and directly causes heart disease \u2014 cut it out completely."
+    ],
+    "result": {
+      "statement": "Saturated fat clogs your arteries and directly causes heart disease \u2014 cut it out completely.",
+      "verdict": "contradicted",
+      "explanation": "The 2010 meta\u2011analysis of 21 prospective cohorts (347,747 participants) found no increased risk of coronary heart disease or cardiovascular disease with higher saturated fat intake (pooled RR\u202f\u2248\u202f1.07, 95\u202f%\u202fCI\u202f0.96\u20131.19; P\u202f=\u202f0.22).",
+      "source": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease",
+      "related_papers": [
+        {
+          "title": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease.",
+          "relevancy_score": 0.7883255774094873
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "flag_contradicted_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Saturated fat clogs your arteries and directly causes heart disease \u2014 cut it out completely.",
+            "verdict": "contradicted",
+            "action": "flag_contradicted_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "contradicted",
+                  2,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T21:51:14Z"
   }
 }
