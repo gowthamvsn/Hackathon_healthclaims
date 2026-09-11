@@ -36,6 +36,7 @@ Python code works with or without it; see `muscle_memory/rote_hook.py`.
 
 
 the public URL: https://play.modiqo.ai/gowtham-healthclaims/health-claim-check@0.1.0 
+                https://play.modiqo.ai/gowtham-healthclaims/health-claim-grounding-check@0.0.1
 
 ## Repo layout
 
