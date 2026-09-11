@@ -56,3 +56,7 @@ if FRONTEND_DIR.exists():
     @app.get("/")
     async def index():
         return FileResponse(str(FRONTEND_DIR / "index.html"))
+
+    @app.get("/feed")
+    async def feed():
+        return FileResponse(str(FRONTEND_DIR / "feed.html"))

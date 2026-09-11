@@ -412,5 +412,1586 @@
       }
     },
     "recorded_at": "2026-09-11T19:03:14Z"
+  },
+  "ce4d8a95fcfd7635": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "does eating a high-sodium diet raise blood pressure?"
+    ],
+    "result": {
+      "statement": "Does eating a high-sodium diet raise blood pressure?",
+      "verdict": "validated",
+      "explanation": "The DASH\u2011Sodium trial showed that decreasing sodium from a high level (\u2248150\u202fmmol/day) to a low level reduced systolic blood pressure by 6.7\u202fmm\u202fHg and diastolic pressure by 3.5\u202fmm\u202fHg, indicating a high\u2011sodium diet raises blood pressure.",
+      "source": "Effects on blood pressure of reduced dietary sodium and the Dietary Approaches to Stop Hypertension (DASH) diet",
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.5848632224058
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "file_validated_claim",
+        "payload": {
+          "statement": "Does eating a high-sodium diet raise blood pressure?",
+          "verdict": "validated",
+          "action": "file_validated_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "validated",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:19:25Z"
+  },
+  "acb842383a8ecf9f": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "intermittent fasting improves insulin sensitivity."
+    ],
+    "result": {
+      "statement": "Intermittent fasting improves insulin sensitivity.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset includes no studies assessing intermittent fasting or its effect on insulin sensitivity.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.35013354841840144
+        },
+        {
+          "title": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials.",
+          "relevancy_score": 0.3313193649053878
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "log_unverified_claim",
+        "payload": {
+          "statement": "Intermittent fasting improves insulin sensitivity.",
+          "verdict": "no_proof",
+          "action": "log_unverified_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "no_proof",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:20:43Z"
+  },
+  "93c59a2f43337e31": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "reducing salt intake lowers blood pressure."
+    ],
+    "result": {
+      "statement": "Reducing salt intake lowers blood pressure.",
+      "verdict": "validated",
+      "explanation": "The DASH\u2011Sodium trial reported that reducing dietary sodium from high to low levels lowered systolic blood pressure by 6.7\u202fmm\u202fHg and diastolic pressure by 3.5\u202fmm\u202fHg.",
+      "source": "Effects on blood pressure of reduced dietary sodium and the Dietary Approaches to Stop Hypertension (DASH) diet",
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.5747957259531766
+        },
+        {
+          "title": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease.",
+          "relevancy_score": 0.5360603570233857
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "file_validated_claim",
+        "payload": {
+          "statement": "Reducing salt intake lowers blood pressure.",
+          "verdict": "validated",
+          "action": "file_validated_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "validated",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:21:13Z"
+  },
+  "142bc5d01cb7913a": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "eating a low-sodium diet reduces high blood pressure."
+    ],
+    "result": {
+      "statement": "Eating a low-sodium diet reduces high blood pressure.",
+      "verdict": "no_proof",
+      "explanation": "No matching evidence found in our primed corpus for this claim.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.5883242035000567
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "log_unverified_claim",
+        "payload": {
+          "statement": "Eating a low-sodium diet reduces high blood pressure.",
+          "verdict": "no_proof",
+          "action": "log_unverified_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "no_proof",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:23:56Z"
+  },
+  "1727b36814c15ee3": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "does saturated fat consumption cause heart disease?"
+    ],
+    "result": {
+      "statement": "Does saturated fat consumption cause heart disease?",
+      "verdict": "contradicted",
+      "explanation": "The 2010 meta\u2011analysis of 21 prospective cohorts (347,747 participants) found no increased risk of coronary heart disease with higher saturated fat intake (pooled RR\u202f=\u202f1.07, 95\u202f%\u202fCI\u202f0.96\u20131.19, P\u202f=\u202f0.22).",
+      "source": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease",
+      "related_papers": [
+        {
+          "title": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease.",
+          "relevancy_score": 0.806949839559881
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "Does saturated fat consumption cause heart disease?",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:24:23Z"
+  },
+  "4bb95b6071bce5d4": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "sugar improves health condition"
+    ],
+    "result": {
+      "statement": "sugar improves health condition",
+      "verdict": "contradicted",
+      "explanation": "The systematic review and meta\u2011analysis found that each additional 12\u2011oz serving per day of sugar\u2011sweetened beverages was associated with a 0.42\u202fkg increase in adult body weight (and higher BMI in children), indicating adverse health effects.",
+      "source": "Sugar\u2011sweetened beverage consumption and weight gain in children and adults: a systematic review and meta\u2011analysis of prospective cohort studies and randomized controlled trials",
+      "related_papers": [
+        {
+          "title": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials.",
+          "relevancy_score": 0.7707377226125833
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "sugar improves health condition",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:40:43Z"
+  },
+  "86b19be1bbda6306": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "sugar improves heart health?"
+    ],
+    "result": {
+      "statement": "sugar improves heart health?",
+      "verdict": "contradicted",
+      "explanation": "Each additional 12\u2011oz serving per day of sugar\u2011sweetened beverages was linked to a 0.42\u202fkg increase in adult body weight, a risk factor for cardiovascular disease.",
+      "source": "Sugar\u2011sweetened beverage consumption and weight gain in children and adults: a systematic review and meta\u2011analysis of prospective cohort studies and randomized controlled trials",
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.7294637343946611
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "sugar improves heart health?",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:48:30Z"
+  },
+  "fd61afb7662a3cf3": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "just read that saturated fat has basically no proven link to heart disease risk in the big meta-analyses. wild."
+    ],
+    "result": {
+      "statement": "Just read that saturated fat has basically no proven link to heart disease risk in the big meta-analyses. Wild.",
+      "verdict": "validated",
+      "explanation": "A 2010 meta\u2011analysis of 21 prospective cohort studies (347,747 participants) found saturated fat intake was not associated with increased coronary heart disease risk (pooled RR\u202f=\u202f1.07, 95%\u202fCI\u202f0.96\u20131.19, P\u202f=\u202f0.22).",
+      "source": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease",
+      "related_papers": [
+        {
+          "title": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease.",
+          "relevancy_score": 0.6170017414171858
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "file_validated_claim",
+        "payload": {
+          "statement": "Just read that saturated fat has basically no proven link to heart disease risk in the big meta-analyses. Wild.",
+          "verdict": "validated",
+          "action": "file_validated_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "validated",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:51:57Z"
+  },
+  "887488f4663fc6da": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "omega-3 fatty acid supplements meaningfully cut cardiovascular risk in high-dose prescription form only, per some trials."
+    ],
+    "result": {
+      "statement": "Omega-3 fatty acid supplements meaningfully cut cardiovascular risk in high-dose prescription form only, per some trials.",
+      "verdict": "contradicted",
+      "explanation": "A meta\u2011analysis of 10 large randomized trials (77\u202f917 participants) found omega\u20113 supplementation had no significant effect on major vascular events (RR\u202f=\u202f0.97; 95\u202f%\u202fCI\u202f0.93\u20111.01), indicating no meaningful cardiovascular risk reduction even at higher doses.",
+      "source": "Associations of Omega-3 Fatty Acid Supplement Use With Cardiovascular Disease Risks: Meta\u2011analysis of 10 Trials Involving 77\u202f917 Individuals",
+      "related_papers": [
+        {
+          "title": "Associations of Omega-3 Fatty Acid Supplement Use With Cardiovascular Disease Risks: Meta-analysis of 10 Trials Involving 77 917 Individuals.",
+          "relevancy_score": 0.5530634327046888
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "Omega-3 fatty acid supplements meaningfully cut cardiovascular risk in high-dose prescription form only, per some trials.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:55:33Z"
+  },
+  "92df1c7626fa475f": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "popping vitamin d pills every morning prevents cancer and heart disease, doctors just don't want you to know."
+    ],
+    "result": {
+      "statement": "Popping vitamin D pills every morning prevents cancer AND heart disease, doctors just don't want you to know.",
+      "verdict": "contradicted",
+      "explanation": "In the VITAL randomized trial, vitamin D supplementation did not lower the incidence of invasive cancer (HR\u202f0.96, 95%\u202fCI\u202f0.88\u20131.06) or major cardiovascular events (HR\u202f0.97, 95%\u202fCI\u202f0.85\u20131.12).",
+      "source": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease",
+      "related_papers": [
+        {
+          "title": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease.",
+          "relevancy_score": 0.627147441968986
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "Popping vitamin D pills every morning prevents cancer AND heart disease, doctors just don't want you to know.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:56:25Z"
+  },
+  "3310277c5a9cbd3b": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "diet soda doesn't cause weight gain at all, it's all in your head."
+    ],
+    "result": {
+      "statement": "Diet soda doesn't cause weight gain at all, it's all in your head.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing the impact of diet (artificially sweetened) soda on weight gain.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials.",
+          "relevancy_score": 0.6291715913976039
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "log_unverified_claim",
+        "payload": {
+          "statement": "Diet soda doesn't cause weight gain at all, it's all in your head.",
+          "verdict": "no_proof",
+          "action": "log_unverified_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "no_proof",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:58:32Z"
+  },
+  "6a615606f1fd8a50": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "artificial sweeteners are 100% safe for your cardiovascular system, case closed."
+    ],
+    "result": {
+      "statement": "Artificial sweeteners are 100% safe for your cardiovascular system, case closed.",
+      "verdict": "contradicted",
+      "explanation": "The NutriNet\u2011Sant\u00e9 cohort found total artificial sweetener intake was linked to a 9% higher risk of overall cardiovascular disease (HR\u202f1.09, 95%\u202fCI\u202f1.01\u20111.18).",
+      "source": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet\u2011Sant\u00e9 cohort",
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.6846588655038509
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            3,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "Artificial sweeteners are 100% safe for your cardiovascular system, case closed.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                3,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:10:19Z"
+  },
+  "3be0302784e9d2c3": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "eating red meat twice a week meaningfully raises colorectal cancer incidence per prospective cohort data."
+    ],
+    "result": {
+      "statement": "Eating red meat twice a week meaningfully raises colorectal cancer incidence per prospective cohort data.",
+      "verdict": "validated",
+      "explanation": "The prospective meta\u2011analysis found fresh red meat intake was associated with a 17% higher colorectal cancer risk per 100\u202fg/day increase (RR\u202f=\u202f1.17, 95%\u202fCI\u202f1.05\u20131.31).",
+      "source": "Red and Processed Meat and Colorectal Cancer Incidence: Meta\u2011Analysis of Prospective Studies",
+      "related_papers": [
+        {
+          "title": "Red and processed meat and colorectal cancer incidence: meta-analysis of prospective studies.",
+          "relevancy_score": 0.5467848422773967
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "file_validated_claim",
+        "payload": {
+          "statement": "Eating red meat twice a week meaningfully raises colorectal cancer incidence per prospective cohort data.",
+          "verdict": "validated",
+          "action": "file_validated_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "validated",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:12:55Z"
+  },
+  "5f543729fd7289c4": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "there is a safe level of alcohol consumption that has no health risk."
+    ],
+    "result": {
+      "statement": "There is a safe level of alcohol consumption that has no health risk.",
+      "verdict": "contradicted",
+      "explanation": "The Global Burden of Disease analysis found the theoretical minimum risk exposure level for alcohol is zero standard drinks per week, indicating no level of consumption is risk\u2011free.",
+      "source": "Alcohol use and burden for 195 countries and territories, 1990-2016: a systematic analysis for the Global Burden of Disease Study 2016",
+      "related_papers": [
+        {
+          "title": "Alcohol use and burden for 195 countries and territories, 1990-2016: a systematic analysis for the Global Burden of Disease Study 2016.",
+          "relevancy_score": 0.6198599172179933
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "There is a safe level of alcohol consumption that has no health risk.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:13:15Z"
+  },
+  "3ef60f24c745e966": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "cold showers boost your metabolism by 300%, saw it on a wellness account."
+    ],
+    "result": {
+      "statement": "Cold showers boost your metabolism by 300%, saw it on a wellness account.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing cold showers or their effect on metabolism.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Effect of breakfast on weight and energy intake: systematic review and meta-analysis of randomised controlled trials.",
+          "relevancy_score": 0.3328932629964074
+        },
+        {
+          "title": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials.",
+          "relevancy_score": 0.3104823598286509
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "log_unverified_claim",
+        "payload": {
+          "statement": "Cold showers boost your metabolism by 300%, saw it on a wellness account.",
+          "verdict": "no_proof",
+          "action": "log_unverified_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "no_proof",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:24:47Z"
+  },
+  "68cf3d700aaea5d2": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "high coffee intake is associated with lower total mortality \u2014 the association held across cause-specific deaths too."
+    ],
+    "result": {
+      "statement": "High coffee intake is associated with lower total mortality \u2014 the association held across cause-specific deaths too.",
+      "verdict": "contradicted",
+      "explanation": "The cohort showed inverse associations for many cause\u2011specific deaths (heart disease, respiratory disease, stroke, injuries, diabetes, infections) but not for cancer mortality.",
+      "source": "Association of coffee drinking with total and cause-specific mortality",
+      "related_papers": [
+        {
+          "title": "Association of coffee drinking with total and cause-specific mortality.",
+          "relevancy_score": 0.6635747332707777
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "High coffee intake is associated with lower total mortality \u2014 the association held across cause-specific deaths too.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:25:22Z"
+  },
+  "d6d1eac2f967ba57": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "drinking eight glasses of water a day is necessary for good health."
+    ],
+    "result": {
+      "statement": "Drinking eight glasses of water a day is necessary for good health.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing water consumption and its impact on health.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials.",
+          "relevancy_score": 0.5060970216756595
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "log_unverified_claim",
+        "payload": {
+          "statement": "Drinking eight glasses of water a day is necessary for good health.",
+          "verdict": "no_proof",
+          "action": "log_unverified_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "no_proof",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:31:10Z"
+  },
+  "f67e84edacc9aa53": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "eating an apple a day prevents all forms of cancer."
+    ],
+    "result": {
+      "statement": "Eating an apple a day prevents all forms of cancer.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies evaluating apple consumption and cancer risk.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease.",
+          "relevancy_score": 0.590724128434976
+        },
+        {
+          "title": "Red and processed meat and colorectal cancer incidence: meta-analysis of prospective studies.",
+          "relevancy_score": 0.5785599094799705
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "log_unverified_claim",
+        "payload": {
+          "statement": "Eating an apple a day prevents all forms of cancer.",
+          "verdict": "no_proof",
+          "action": "log_unverified_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "no_proof",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:36:29Z"
+  },
+  "504d876962f2cfbd": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "regular exercise improves cardiovascular health."
+    ],
+    "result": {
+      "statement": "Regular exercise improves cardiovascular health.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing the impact of regular exercise on cardiovascular health.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.46887702796809994
+        },
+        {
+          "title": "Associations of Omega-3 Fatty Acid Supplement Use With Cardiovascular Disease Risks: Meta-analysis of 10 Trials Involving 77 917 Individuals.",
+          "relevancy_score": 0.419924423002906
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            3,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "error",
+        "error": "Pipeline is already running."
+      }
+    },
+    "recorded_at": "2026-09-11T20:39:33Z"
+  },
+  "f64dbd3f8e6fb62d": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "does eating too much sugar cause weight gain?"
+    ],
+    "result": {
+      "statement": "Does eating too much sugar cause weight gain?",
+      "verdict": "validated",
+      "explanation": "Each additional 12\u2011oz serving per day of sugar\u2011sweetened beverages was associated with a 0.42\u202fkg higher adult body weight in cohort studies and increased weight by 0.83\u202fkg in randomized trials.",
+      "source": "Sugar\u2011sweetened beverage consumption and weight gain in children and adults: a systematic review and meta\u2011analysis of prospective cohort studies and randomized controlled trials",
+      "related_papers": [
+        {
+          "title": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials.",
+          "relevancy_score": 0.8422332527164968
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "file_validated_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Does eating too much sugar cause weight gain?",
+            "verdict": "validated",
+            "action": "file_validated_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "validated",
+                  1,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:42:40Z"
+  },
+  "e4790b99a1f927d5": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "taking beta-carotene supplements protects smokers from lung cancer, more antioxidants can't hurt right?"
+    ],
+    "result": {
+      "statement": "Taking beta-carotene supplements protects smokers from lung cancer, more antioxidants can't hurt right?",
+      "verdict": "contradicted",
+      "explanation": "In the CARET randomized trial of smokers, daily 30\u202fmg beta\u2011carotene (with vitamin\u202fA) raised lung\u2011cancer risk (relative risk\u202f1.28, 95\u202f%\u202fCI\u202f1.04\u20131.57).",
+      "source": "Effects of a Combination of Beta Carotene and Vitamin A on Lung Cancer and Cardiovascular Disease",
+      "related_papers": [
+        {
+          "title": "Effects of a Combination of Beta Carotene and Vitamin A on Lung Cancer and Cardiovascular Disease.",
+          "relevancy_score": 0.8645809471006203
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "flag_contradicted_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Taking beta-carotene supplements protects smokers from lung cancer, more antioxidants can't hurt right?",
+            "verdict": "contradicted",
+            "action": "flag_contradicted_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "contradicted",
+                  1,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:47:33Z"
+  },
+  "763795167e4107ae": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "fasting for 24 hours resets your metabolism permanently."
+    ],
+    "result": {
+      "statement": "Fasting for 24 hours resets your metabolism permanently.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing 24\u2011hour fasting or its long\u2011term effects on metabolism.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Effect of breakfast on weight and energy intake: systematic review and meta-analysis of randomised controlled trials.",
+          "relevancy_score": 0.42936612097188387
+        },
+        {
+          "title": "Effects on blood pressure of reduced dietary sodium and the Dietary Approaches to Stop Hypertension (DASH) diet. DASH-Sodium Collaborative Research Group.",
+          "relevancy_score": 0.4010399490909212
+        },
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.39734622570739264
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "log_unverified_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Fasting for 24 hours resets your metabolism permanently.",
+            "verdict": "no_proof",
+            "action": "log_unverified_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "no_proof",
+                  2,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:54:31Z"
+  },
+  "537ac307349c6040": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "fasting for 24 hours resets your metabolism\n      permanently"
+    ],
+    "result": {
+      "statement": "Fasting for 24 hours resets your metabolism\n      permanently",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing 24\u2011hour fasting or its long\u2011term effects on metabolism.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Effect of breakfast on weight and energy intake: systematic review and meta-analysis of randomised controlled trials.",
+          "relevancy_score": 0.444968926890015
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            3,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "log_unverified_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Fasting for 24 hours resets your metabolism\n      permanently",
+            "verdict": "no_proof",
+            "action": "log_unverified_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "no_proof",
+                  3,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:55:05Z"
+  },
+  "3b1ca696518cca4d": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "cold showers every morning boost the immune system by 40 percent."
+    ],
+    "result": {
+      "statement": "Cold showers every morning boost the immune system by 40 percent.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies assessing cold showers or their effect on the immune system.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Effect of breakfast on weight and energy intake: systematic review and meta-analysis of randomised controlled trials.",
+          "relevancy_score": 0.3182335416069021
+        },
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.31184230942392
+        },
+        {
+          "title": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease.",
+          "relevancy_score": 0.3040084873956487
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            4,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "log_unverified_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Cold showers every morning boost the immune system by 40 percent.",
+            "verdict": "no_proof",
+            "action": "log_unverified_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "no_proof",
+                  4,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:57:17Z"
+  },
+  "6e569dcc916b783d": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "chewing gum before bed prevents cavities entirely."
+    ],
+    "result": {
+      "statement": "Chewing gum before bed prevents cavities entirely.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset contains no studies evaluating chewing gum before bed and its effect on cavity prevention.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Association of coffee drinking with total and cause-specific mortality.",
+          "relevancy_score": 0.31557750617063496
+        },
+        {
+          "title": "Effect of breakfast on weight and energy intake: systematic review and meta-analysis of randomised controlled trials.",
+          "relevancy_score": 0.29049624815917074
+        },
+        {
+          "title": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease.",
+          "relevancy_score": 0.2777793732411739
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            5,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "log_unverified_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Chewing gum before bed prevents cavities entirely.",
+            "verdict": "no_proof",
+            "action": "log_unverified_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "no_proof",
+                  5,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T20:58:38Z"
+  },
+  "61b1f43ec15b3bcf": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "omega-3 supplements prevent heart attacks, everyone should be taking fish oil daily."
+    ],
+    "result": {
+      "statement": "Omega-3 supplements prevent heart attacks, everyone should be taking fish oil daily.",
+      "verdict": "contradicted",
+      "explanation": "Randomized trials showed omega\u20113 supplementation had no significant effect on non\u2011fatal myocardial infarction (RR\u202f=\u202f0.97; 95%\u202fCI\u202f0.87\u20111.08; P\u202f=\u202f0.40).",
+      "source": "Associations of Omega-3 Fatty Acid Supplement Use With Cardiovascular Disease Risks: Meta\u2011analysis of 10 Trials Involving 77\u202f917 Individuals",
+      "related_papers": [
+        {
+          "title": "Associations of Omega-3 Fatty Acid Supplement Use With Cardiovascular Disease Risks: Meta-analysis of 10 Trials Involving 77 917 Individuals.",
+          "relevancy_score": 0.8443730446244235
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "rocketride_pipeline",
+        "action": "flag_contradicted_claim",
+        "result": {
+          "stdout": "",
+          "stderr": "",
+          "exit_code": 0,
+          "timed_out": false,
+          "result": {
+            "statement": "Omega-3 supplements prevent heart attacks, everyone should be taking fish oil daily.",
+            "verdict": "contradicted",
+            "action": "flag_contradicted_claim",
+            "hotdata_stats": {
+              "columns": [
+                "topic",
+                "claim_count",
+                "avg_confidence"
+              ],
+              "rows": [
+                [
+                  "contradicted",
+                  2,
+                  1.0
+                ]
+              ],
+              "row_count": 1
+            },
+            "processed_by": "rocketride_hosted_pipeline"
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T21:20:12Z"
   }
 }

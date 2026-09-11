@@ -35,7 +35,25 @@
     font-size: 12px; color: var(--text-muted); margin-top: 10px;
     padding: 10px 12px; background: #eef1fb; border-radius: 8px;
   }
-  .statements { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .input-row { display: flex; gap: 10px; margin-top: 24px; }
+  .claim-input {
+    flex: 1;
+    font-size: 15px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 46px;
+  }
+  .claim-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(52,84,209,0.12); }
+  .examples { margin-top: 10px; font-size: 12px; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .example-chip {
+    background: #eef1fb; color: var(--accent); border: none; border-radius: 999px;
+    padding: 4px 10px; font-size: 12px; cursor: pointer;
+  }
+  .example-chip:hover { background: #dfe4f8; }
+  .statements { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
   .statement-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -45,10 +63,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    cursor: pointer;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
-  .statement-card:hover { border-color: var(--accent); box-shadow: 0 1px 6px rgba(52,84,209,0.12); }
   .statement-text { font-size: 15px; line-height: 1.4; }
   .check-btn {
     flex-shrink: 0;
@@ -62,6 +78,15 @@
     cursor: pointer;
   }
   .check-btn:disabled { opacity: 0.5; cursor: default; }
+  .remove-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+  }
   .result {
     margin-top: 10px;
     padding: 12px 14px;
@@ -115,18 +140,32 @@
 <body>
 <div class="container">
   <header>
+    <div style="text-align:right; margin-bottom:6px;"><a href="/feed" style="font-size:13px; color:var(--accent); text-decoration:none;">Browse feed →</a></div>
     <h1>🔬 Self-Improving Research Assistant</h1>
     <div class="subtitle">
-      Click a health claim below to check it against a corpus of real published research —
+      Type any health/nutrition claim and check it against a corpus of real published research —
       the answer is <strong>validated</strong>, <strong>contradicted</strong>, or
       <strong>no proof found</strong>, with the actual paper cited.
     </div>
     <div class="stack-note">
       Each check runs the full stack live: Cognee (graph recall) → HydraDB (related-paper recall)
-      → hotdata.dev (trend logging) → RocketRide (decide + act) → Rote (caches the whole run —
-      check the same claim twice and watch the second one return instantly).
+      → hotdata.dev (trend logging) → RocketRide (decide + act), wrapped in a local muscle-memory
+      cache modeled on Modiqo Rote's replay concept — check the same claim twice and watch the
+      second one return instantly, with zero external calls repeated.
     </div>
   </header>
+
+  <div class="input-row">
+    <textarea class="claim-input" id="claim-input" rows="1"
+      placeholder="e.g. Does eating dark chocolate lower blood pressure?"></textarea>
+    <button class="check-btn" id="submit-btn" style="padding:0 18px">Check</button>
+  </div>
+  <div class="examples">
+    Try:
+    <button class="example-chip" data-text="Saturated fat increases the risk of heart disease.">saturated fat &amp; heart disease</button>
+    <button class="example-chip" data-text="Drinking coffee is linked to lower risk of death.">coffee &amp; mortality</button>
+    <button class="example-chip" data-text="Eating chocolate improves eyesight.">chocolate &amp; eyesight</button>
+  </div>
 
   <div class="statements" id="statements"></div>
 
@@ -134,16 +173,6 @@
 </div>
 
 <script>
-const STATEMENTS = [
-  "Saturated fat increases the risk of heart disease.",
-  "Drinking coffee is linked to lower risk of death.",
-  "Eating red and processed meat increases colorectal cancer risk.",
-  "Vitamin D supplements prevent cancer and heart disease.",
-  "Sugar-sweetened beverages cause weight gain.",
-  "Omega-3 supplements prevent heart attacks.",
-  "Eating chocolate improves eyesight.",
-];
-
 const VERDICT_LABEL = {
   validated: "✅ Validated",
   contradicted: "❌ Contradicted",
@@ -151,59 +180,87 @@ const VERDICT_LABEL = {
 };
 
 const statementsEl = document.getElementById("statements");
+const inputEl = document.getElementById("claim-input");
+const submitBtn = document.getElementById("submit-btn");
 
-STATEMENTS.forEach((text, i) => {
+function escapeHtml(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function addCard(text) {
+  const id = `card-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
   const card = document.createElement("div");
   card.className = "statement-card";
+  card.id = id;
   card.innerHTML = `
     <div style="flex:1">
-      <div class="statement-text">${text}</div>
-      <div class="result" id="result-${i}"></div>
+      <div class="statement-text">${escapeHtml(text)}</div>
+      <div class="result" id="${id}-result"></div>
     </div>
-    <button class="check-btn" id="btn-${i}">Check</button>
+    <button class="remove-btn" title="Remove">✕</button>
   `;
-  statementsEl.appendChild(card);
+  card.querySelector(".remove-btn").addEventListener("click", () => card.remove());
+  statementsEl.prepend(card);
+  return card.querySelector(`#${id}-result`);
+}
 
-  const btn = card.querySelector(`#btn-${i}`);
-  const resultEl = card.querySelector(`#result-${i}`);
+async function runCheck(text) {
+  text = text.trim();
+  if (!text) return;
 
-  btn.addEventListener("click", async (e) => {
-    e.stopPropagation();
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>';
-    resultEl.className = "result";
+  const resultEl = addCard(text);
+  resultEl.className = "result show";
+  resultEl.innerHTML = '<span class="spinner"></span> Checking against the corpus...';
 
-    try {
-      const t0 = performance.now();
-      const res = await fetch("/api/check", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ statement: text }),
-      });
-      const data = await res.json();
-      const clientMs = (performance.now() - t0).toFixed(0);
+  try {
+    const res = await fetch("/api/check", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ statement: text }),
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
 
-      resultEl.className = `result show ${data.verdict}`;
-      const replayBadge = data.replayed
-        ? `<span class="replay-badge">⚡ replayed from Rote — instant</span>`
-        : "";
-      resultEl.innerHTML = `
-        <div class="verdict-label">${VERDICT_LABEL[data.verdict] || data.verdict}</div>
-        <div class="explanation">${data.explanation || ""}</div>
-        <div class="meta">
-          ${data.source ? `<span>📄 ${data.source}</span>` : ""}
-          <span>⏱ ${data.elapsed_seconds < 0.01 ? (data.elapsed_seconds * 1e6).toFixed(1) + "µs" : data.elapsed_seconds.toFixed(2) + "s"}</span>
-          ${replayBadge}
-        </div>
-      `;
-    } catch (err) {
-      resultEl.className = "result show no_proof";
-      resultEl.innerHTML = `<div class="explanation">Error: ${err.message}</div>`;
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Check again";
-    }
-  });
+    resultEl.className = `result show ${data.verdict}`;
+    const replayBadge = data.replayed
+      ? `<span class="replay-badge">⚡ instant replay — local muscle-memory cache</span>`
+      : "";
+    resultEl.innerHTML = `
+      <div class="verdict-label">${VERDICT_LABEL[data.verdict] || data.verdict}</div>
+      <div class="explanation">${escapeHtml(data.explanation || "")}</div>
+      <div class="meta">
+        ${data.source ? `<span>📄 ${escapeHtml(data.source)}</span>` : ""}
+        <span>⏱ ${data.elapsed_seconds < 0.01 ? (data.elapsed_seconds * 1e6).toFixed(1) + "µs" : data.elapsed_seconds.toFixed(2) + "s"}</span>
+        ${replayBadge}
+      </div>
+    `;
+  } catch (err) {
+    resultEl.className = "result show no_proof";
+    resultEl.innerHTML = `<div class="explanation">Error: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+async function submit() {
+  const text = inputEl.value;
+  if (!text.trim()) return;
+  submitBtn.disabled = true;
+  inputEl.value = "";
+  await runCheck(text);
+  submitBtn.disabled = false;
+  inputEl.focus();
+}
+
+submitBtn.addEventListener("click", submit);
+inputEl.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    submit();
+  }
+});
+document.querySelectorAll(".example-chip").forEach((chip) => {
+  chip.addEventListener("click", () => runCheck(chip.dataset.text));
 });
 </script>
 </body>

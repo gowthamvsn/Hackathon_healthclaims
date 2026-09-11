@@ -1,0 +1,21 @@
+{
+  "pipeline": {
+    "description": "Research assistant: decide + act on a claim verdict",
+    "version": 1,
+    "project_id": "research-assistant-decide-act",
+    "source": "webhook_in",
+    "components": [
+      {
+        "id": "webhook_in",
+        "provider": "webhook",
+        "config": {}
+      },
+      {
+        "id": "decide_and_act",
+        "provider": "tool_python",
+        "config": { "type": "tool_python", "timeout": 20, "allowedModules": [] },
+        "input": [{ "from": "webhook_in", "lane": "json" }]
+      }
+    ]
+  }
+}

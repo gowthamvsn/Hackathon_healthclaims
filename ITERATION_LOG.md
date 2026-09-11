@@ -182,12 +182,233 @@ Local reference date: 2026-09-10 evening (America/Los_Angeles), hackathon is
   itself calling Cognee via MCP instead of the Python SDK at runtime (a
   real architecture change). Awaiting user's answer.
 
+## 2026-09-11 ~18:07Z — RocketRide unblocked (key regenerated)
+
+- User regenerated the RocketRide API key from the dashboard (new value
+  ending `...c57106`, old one ending `...a3e3` stayed dead). Smoke test
+  now **PASS**: `connected=True, action executed_via=local_fallback (1.03s)`.
+  `executed_via=local_fallback` is expected — no `.pipe` file has been
+  built in the RocketRide dashboard yet, so it makes a real authenticated
+  decision locally instead of inside a hosted pipeline.
+
+## 2026-09-11 ~18:10–18:20Z — Product pivot confirmed, corpus rebuilt with real literature
+
+- User approved building the Grammarly-style claim-checker UX (validated /
+  contradicted / no_proof, health/nutrition corpus) that had been proposed
+  earlier but not yet greenlit.
+- First pass: fetched 10 real PubMed abstracts (not fabricated text) via
+  NCBI E-utilities for well-known, genuinely contradictory studies —
+  saturated fat/CVD (Siri-Tarino 2010), red/processed meat/cancer (Chan
+  2011), coffee/mortality (Freedman 2012), sugar-sweetened beverages/
+  obesity, vitamin D/VITAL trial (Manson 2019), intermittent fasting/TREAT
+  trial, artificial sweeteners/CVD (Debras 2022), omega-3/CVD (Aung 2018),
+  sodium/DASH (Sacks 2001), gut microbiome/American Gut (McDonald 2018).
+- **User pushed back: wanted actual downloaded papers, not just abstracts**
+  — asked for first ~3000 words of real full text where available. User
+  then manually downloaded and dropped 9 real PDFs into
+  `data/sample_papers/` (matches all topics except intermittent fasting).
+- Extracted real full text via `pdftotext` (default mode reads better than
+  `-layout` for two-column academic PDFs), cleaned boilerplate
+  (headers/footers/page numbers) via regex, truncated to first ~3000
+  words, replaced the abstract-only corpus files in `data/health_papers/`
+  with this real full text + proper citation headers (title/journal/PMID).
+  Intermittent fasting topic **dropped** (user's call — no PDF was
+  supplied for it) — corpus is 9 real papers, not 10.
+
+## 2026-09-11 ~18:16–18:30Z — Corpus priming, a real bug found and fixed
+
+- `scripts/prime_corpus.py` (new): loops the 9-paper corpus through
+  `cognee.add()` + `cognee.cognify()` (builds the graph) and
+  `hydra_store.persist_paper_graph()` (durable HydraDB write) once each.
+- First run: 7/9 papers succeeded (10–60s each, real cognify time), then
+  crashed with `aiohttp.ServerDisconnectedError` from Cognee's side on
+  paper 8 (transient, not our bug). Retry hung and was killed.
+- **User instruction: skip the 2 failing papers, work with the 7.**
+- Investigating why a re-check reported all 9 "missing" surfaced a real
+  bug: `hydra_store.has_seen()` called `client.context.list()` and assumed
+  the response was a flat list (`listing.data`), but the real shape is
+  `listing.data.sources` (confirmed live: `HandlerEnvelopeListV2ListResponse
+  .data.sources` with `pagination.total`). The shape mismatch threw inside
+  a bare `except Exception: return False`, so `has_seen()` silently always
+  returned False — a false "nothing is primed" reading. Fixed the parsing;
+  re-verified directly against the live API: **7 of 9 papers are genuinely
+  primed** (`pagination.total=7`, correct titles). The 2 that failed
+  (sodium/DASH, gut microbiome) are genuinely not in Cognee — confirmed
+  separately by the crash traceback, not just the bug.
+
+## 2026-09-11 ~18:33–19:00Z — Full 5-tool pipeline rebuilt in `agent/claim_checker.py`
+
+- User asked directly: "are we using the tool's capabilities properly...
+  are we building actual graphs, physically seen, etc." Audit found a real
+  gap: the live demo path (`claim_checker.py` as it existed then) only
+  touched Cognee, HydraDB (write-only), and Rote — **hotdata.dev and
+  RocketRide were never called at query time**, only inside the old
+  `agent/pipeline.py` benchmark script that the demo doesn't use. This
+  violates the brief's "every layer must do real, repeated work" judging
+  note.
+- Verified HydraDB's `recall()`/`query()` response shape live too (same
+  defensive-verification pattern as the `has_seen()` bug): real shape is
+  `result.data.chunks[i].{chunk_content, additional_metadata, relevancy_score}`
+  — genuine chunked hybrid retrieval, confirmed by querying "saturated fat
+  and heart disease risk" and getting back the correct paper's actual
+  content with a 0.80 relevancy score.
+- Rebuilt `claim_checker.py` as a `ClaimChecker` class whose `check()`
+  genuinely walks all five tools in the brief's own reference-architecture
+  order for every single call:
+  1. **Cognee** — `GRAPH_COMPLETION` search, parses VALIDATE/CONTRADICT/
+     NO_PROOF + explanation + source from a structured prompt.
+  2. **HydraDB** — `recall()` for related stored papers (relevancy-scored).
+  3. **hotdata.dev** — logs the check as a row, runs a real SQL trend
+     aggregate (`topic_trend_query`).
+  4. **RocketRide** — new `decide_and_act_on_claim()` method on
+     `RocketRideOrchestrator`, decides `file_validated_claim` /
+     `flag_contradicted_claim` / `log_unverified_claim` and executes.
+  5. **Modiqo/Rote** — `RotePlay` now wraps the *entire* 4-step pipeline
+     (previously only wrapped the Cognee call), matching the brief's "sit
+     Rote underneath your RocketRide execution loop" language more
+     literally, and making the replay demo stronger (one replay skips all
+     four external calls, not just one).
+- Also made `agent/pipeline.py`'s RocketRide `connect()` call fault
+  -tolerant (try/except instead of an unguarded await) so a bad/expired
+  key degrades gracefully instead of crashing the whole request.
+- **Bug found + fixed during first end-to-end test:** hotdata's
+  `execute_sql()` returns a `QueryResult` object, not JSON-serializable.
+  Rote's `_json_safe()` silently caught the `json.dumps()` TypeError and
+  collapsed the *entire* result dict into a plain string for caching,
+  which broke replay (`dict(play["result"])` crashed with "dictionary
+  update sequence element #0 has length 1; 2 is required" on the second
+  call). Fixed by extracting `{columns, rows, row_count}` from the
+  QueryResult before it goes into the cached result. Reset the corrupted
+  ledger entry (`data/rote_adapters/plays.json`) and re-verified.
+- **Verified end-to-end on 7 real demo statements**, all five tools doing
+  real work every time, all correctly verdicted against the real papers:
+
+  | Statement | Verdict | Cold run |
+  |---|---|---|
+  | Saturated fat increases heart disease risk | contradicted | 27.2s |
+  | Drinking coffee is linked to lower risk of death | validated | 34.8s |
+  | Red/processed meat increases colorectal cancer risk | validated | 22.7s |
+  | Vitamin D supplements prevent cancer/heart disease | contradicted | 23.1s |
+  | Sugar-sweetened beverages cause weight gain | validated | 25.7s |
+  | Omega-3 supplements prevent heart attacks | contradicted | 20.7s |
+  | Eating chocolate improves eyesight | no_proof | 19.2s |
+
+  Repeat check of the first statement: `replayed: true`, **0.0000043s**
+  — all four external calls skipped, served from the local ledger. This
+  is the real "second/third run gets faster/cheaper" compounding proof
+  the brief's judging note asks for, and it persists across process
+  restarts (the ledger is file-backed).
+
+## 2026-09-11 ~18:34–19:00Z — Modiqo/Rote: real product still not wired in (in progress)
+
+- Confirmed `rote` CLI was never installed (`which rote` empty,
+  `ROTE_WORKSPACE=` empty in `.env`) — everything working for "muscle
+  memory" up to this point is our own local replay-ledger substitute
+  (`muscle_memory/rote_hook.py`), which is real and functionally proven,
+  but never touches Modiqo's actual product.
+- **User relayed a hard requirement heard at the event: at least 2 useful
+  Rote "Plays" are needed to be eligible to win.** A Play = a real,
+  inspectable, replayable capture of a successful workflow, published
+  (Team/Community/Skip) through Rote's own lifecycle — not our local
+  mimic.
+- Found the authoritative setup page (`https://www.modiqo.ai/blog/the-playoffs`,
+  linked directly from the hackathon brief). Confirmed via WebFetch +
+  the user pasting the full page: install is
+  `curl -fsSL https://getrote.dev/playoffs/install.sh | sh` — **macOS/
+  Linux/WSL only, no native Windows/cmd/PowerShell path** (this was the
+  root cause of the user's "nothing works in cmd or PowerShell" confusion
+  — there is no native Windows path for this tool). Rote is not a
+  standalone shell CLI you script against; it's a chat-command plugin
+  inside a coding-assistant harness (`/play ...` in Claude Code, `$play
+  ...` in Cursor/Codex, `/skill:play ...` in Kimi).
+- Install flow, confirmed from the real page content: installer → sign in
+  via Google/GitHub → `$play run hello` (or harness-specific prefix) as
+  warm-up → `$play explore <outcome>` to create a real Play from actual
+  repeated work → publish to Community → post "warmed up" in Discord.
+- **User is running this now, live, in a WSL shell** (`koole@Gowtham:~$`):
+  first hit "uv or the locked Play Python dependencies are required" →
+  installed `uv` via `curl -LsSf https://astral.sh/uv/install.sh | sh` →
+  needed `source $HOME/.local/bin/env` since a fresh install isn't on
+  PATH until the shell restarts/sources it → installer then progressed
+  past the OS/tools check into the interactive guided-setup prompt.
+  **Not yet complete as of this log entry** — still needs: finish guided
+  setup, sign in, run `$play run hello`, then create + publish at least 2
+  real Plays from genuine parts of this project (best candidates: the
+  Cognee claim-check step, and the RocketRide decide+act step).
+
+## 2026-09-11 ~19:00Z — Snyk: installed, authenticated, real scan run
+
+- `npm install -g snyk` (global install landed at
+  `C:\Users\koole\AppData\Roaming\npm\snyk`, not on the git-bash PATH by
+  default — invoke via full path or add to PATH).
+- `snyk auth` with the token already in `.env` — succeeded.
+- `snyk test --file=requirements.txt --package-manager=pip` needed the
+  venv's Python explicitly (`--command=.venv/Scripts/python.exe`) to
+  resolve dependencies.
+- **Real result: 5 vulnerabilities across 133 scanned dependencies** — 1
+  Critical (arbitrary code injection in `cognee` itself), 2 High (session
+  expiration + deserialization in `litellm`/`diskcache`), 2 Medium (in
+  `litellm`). All 5 are transitive, inside Cognee's own pinned dependency
+  tree (a mandated sponsor tool), and Snyk itself reports **"no direct
+  upgrade or patch"** available for any of them — not fixable by us
+  without Cognee releasing a patched version. Documented (not ignored):
+  saved as `snyk_scan_results.json` in the repo root as a permanent,
+  inspectable record.
+
+## 2026-09-11 ~19:00–19:05Z — API + frontend built and tested end-to-end
+
+- `agent/api.py` (new): thin FastAPI layer over `ClaimChecker` — single
+  `POST /api/check` endpoint, serves `frontend/index.html` as static
+  content. FastAPI/uvicorn/pyarrow were already present as transitive
+  deps of `cognee` — no new installs needed.
+- `frontend/index.html` (new): single self-contained page (no build step,
+  no external deps) — 7 pre-scripted clickable demo statements (the same
+  7 verified above, covering all three verdicts), colored inline
+  verdict marker (green/red/gray), explanation + cited source, elapsed
+  time, and a visible "⚡ replayed from Rote — instant" badge when a
+  cached play fires.
+- Started the server (`uvicorn agent.api:app --port 8000`), verified via
+  real `curl` calls against `/api/health`, `/`, and `/api/check` — all
+  7 demo statements return correct verdicts through the actual HTTP
+  layer, not just the Python-level test used earlier.
+
+## 2026-09-11 ~19:10Z — Git repo initialized, first commit made
+
+- Project had no git repo at all (`D:\hackthon_sept11` and
+  `research_assistant/` were both untracked). Initialized git
+  **specifically inside `research_assistant/`**, not at the parent
+  `D:\hackthon_sept11` root — the real `.env` (with live API keys) lives
+  one directory above `research_assistant/`, so scoping the repo there
+  makes it structurally impossible to accidentally commit secrets,
+  regardless of `.gitignore` correctness. Verified `.gitignore` already
+  excludes `.env`, `.venv/`, `__pycache__/`, `.cognee/` etc.; double
+  -checked `snyk_scan_results.json` for leaked tokens/org IDs (clean)
+  before staging. First commit: 52 files, all current work (agent code,
+  primed-corpus source papers, frontend, Snyk results, Rote ledger).
+
 ## Outstanding as of this log entry
 
-| Layer | Status | Blocker |
+| Layer | Status | Notes |
 |---|---|---|
-| HydraDB | ✅ PASS | none |
-| hotdata.dev | ✅ PASS | none |
-| Cognee | ✅ PASS | none (routes through Cognee Cloud) |
-| Modiqo Rote | ✅ PASS | CLI not yet installed locally (not required for the local-ledger fallback to work) |
-| RocketRide | ❌ FAIL | `ROCKETRIDE_API_KEY` invalid/unactivated — possibly needs the hackathon coupon-code credits, only issued at the venue |
+| Cognee | ✅ PASS, load-bearing every check | query-time GRAPH_COMPLETION recall |
+| HydraDB | ✅ PASS, load-bearing every check | query-time relationship recall (bug-fixed) + priming writes |
+| hotdata.dev | ✅ PASS, load-bearing every check | logs + real SQL trend query per check |
+| RocketRide | ✅ PASS, load-bearing every check | new `decide_and_act_on_claim()`, real key |
+| Modiqo Rote | ⚠️ Functionally proven, real product not yet used | local ledger works (27s→0.0000043s verified); real `rote` CLI install in progress in WSL, need ≥2 published Community Plays per user-relayed hackathon requirement |
+| Snyk | ✅ Scanned, documented | 5 unfixable transitive vulns in Cognee's own deps, recorded not ignored |
+| Corpus | 7/9 papers primed | sodium/DASH + gut microbiome skipped per user instruction (transient Cognee disconnect) |
+| API + frontend | ✅ Built and tested | FastAPI + single-page demo UI, verified via real HTTP end to end |
+| Git | ✅ Initialized + first commit | scoped to `research_assistant/`, `.env` structurally excluded |
+
+### Next steps when resuming
+1. Finish Rote install in WSL → `$play run hello` → create + publish ≥2
+   real Community Plays (Cognee step + RocketRide step are the natural
+   candidates).
+2. Optional: retry priming the 2 skipped papers (sodium/DASH, gut
+   microbiome) if time allows — corpus works fine at 7 papers either way.
+3. Rehearse the live demo: open `http://127.0.0.1:8000`, click through a
+   few statements live, then click one a second time to show the Rote
+   instant-replay moment.
+4. Optional stretch: wire a real `.pipe` file into the RocketRide
+   dashboard so `decide_and_act_on_claim()` executes via a hosted
+   pipeline instead of `local_fallback`.

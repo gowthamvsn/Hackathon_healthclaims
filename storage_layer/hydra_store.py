@@ -90,6 +90,24 @@ def has_seen(client: HydraDB, database: str, text: str, collection: str = "paper
         return False
 
 
+def list_paper_titles(client: HydraDB, database: str, collection: str = "papers") -> list[str]:
+    """All titles actually primed into this database — the ground truth
+    allowlist for "is this source really from our corpus, or did the LLM
+    make it up from outside knowledge?" checks."""
+    try:
+        listing = client.context.list(database=database, collection=collection, type="knowledge")
+        sources = getattr(getattr(listing, "data", None), "sources", None) or []
+        titles = []
+        for s in sources:
+            meta = getattr(s, "additional_metadata", None) or {}
+            title = meta.get("title")
+            if title:
+                titles.append(title)
+        return titles
+    except Exception:
+        return []
+
+
 def recall(client: HydraDB, database: str, query: str, collection: str = "papers", max_results: int = 10):
     """Relationship-aware recall: hybrid graph + vector retrieval over the
     durable store, for "what changed", "who claims what", "what's blocking

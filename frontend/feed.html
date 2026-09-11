@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pulse — Feed</title>
+<style>
+  :root {
+    --bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --border: #e2e5ea;
+    --text: #1a1d23;
+    --text-muted: #65676b;
+    --validated: #1a7f4b;
+    --validated-bg: #e6f6ed;
+    --contradicted: #b3261e;
+    --contradicted-bg: #fdecea;
+    --no_proof: #5b6270;
+    --no_proof-bg: #eef0f3;
+    --accent: #3454d1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  header h1 { font-size: 18px; margin: 0; }
+  header .nav-link { font-size: 13px; color: var(--accent); text-decoration: none; }
+  .hint {
+    max-width: 560px; margin: 14px auto 0; padding: 10px 14px;
+    background: #eef1fb; color: #3a4a8f; border-radius: 8px; font-size: 12.5px; line-height: 1.5;
+  }
+  .feed { max-width: 560px; margin: 16px auto 120px; padding: 0 12px; display: flex; flex-direction: column; gap: 12px; }
+  .post {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .post-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+  .post-meta { font-size: 13px; }
+  .post-name { font-weight: 600; }
+  .post-time { color: var(--text-muted); font-size: 12px; }
+  .post-body {
+    font-size: 15px; line-height: 1.5;
+    user-select: text;
+  }
+  .post-actions {
+    display: flex; gap: 18px; margin-top: 10px; padding-top: 8px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted); font-size: 13px;
+  }
+
+  .float-btn {
+    position: absolute;
+    background: var(--accent); color: white;
+    border: none; border-radius: 6px;
+    padding: 7px 12px; font-size: 13px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+    display: none; z-index: 50;
+    white-space: nowrap;
+  }
+  .float-btn.show { display: block; }
+
+  .drawer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card-bg); border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    z-index: 40; max-height: 60vh; display: flex; flex-direction: column;
+    transform: translateY(calc(100% - 46px));
+    transition: transform 0.2s ease;
+  }
+  .drawer.open { transform: translateY(0); }
+  .drawer-header {
+    padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .drawer-title { font-weight: 700; font-size: 14px; }
+  .drawer-count {
+    background: var(--accent); color: white; border-radius: 999px;
+    font-size: 11px; padding: 1px 7px; margin-left: 8px;
+  }
+  .drawer-body { overflow-y: auto; padding: 0 16px 16px; }
+  .result-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; margin-bottom: 10px; font-size: 14px; line-height: 1.5;
+  }
+  .result-card.validated { background: var(--validated-bg); color: var(--validated); }
+  .result-card.contradicted { background: var(--contradicted-bg); color: var(--contradicted); }
+  .result-card.no_proof { background: var(--no_proof-bg); color: var(--no_proof); }
+  .result-quote { font-size: 12.5px; color: var(--text); opacity: 0.75; margin-bottom: 6px; font-style: italic; }
+  .verdict-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 700; text-transform: uppercase; font-size: 12px;
+    letter-spacing: 0.03em; margin-bottom: 6px;
+  }
+  .explanation { color: var(--text); font-size: 13.5px; }
+  .meta { margin-top: 8px; font-size: 11.5px; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 10px; }
+  .replay-badge { background: #fff3cd; color: #8a6100; border-radius: 5px; padding: 1px 7px; font-weight: 700; }
+  .spinner {
+    width: 13px; height: 13px; border: 2px solid rgba(0,0,0,0.15); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: -2px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📰 Pulse</h1>
+  <a class="nav-link" href="/">Manual check tool →</a>
+</header>
+
+<div class="hint">
+  Select any statement in a post below. If it looks like a health/nutrition claim, a
+  <strong>Check</strong> button appears — click it to verify against our research corpus
+  (validated / contradicted / no proof found, real citation).
+</div>
+
+<div class="feed" id="feed"></div>
+
+<button class="float-btn" id="float-btn">✓ Check claim</button>
+
+<div class="drawer" id="drawer">
+  <div class="drawer-header" id="drawer-header">
+    <div class="drawer-title">Checked claims <span class="drawer-count" id="drawer-count">0</span></div>
+    <div id="drawer-toggle">▲</div>
+  </div>
+  <div class="drawer-body" id="drawer-body">
+    <div style="color:var(--text-muted); font-size:13px; padding:8px 0;">
+      Nothing checked yet — select a health claim above and click Check.
+    </div>
+  </div>
+</div>
+
+<script>
+// ---------- Fast client-side heuristic: does this look health/nutrition-related? ----------
+// This is intentionally cheap (no backend round-trip) — it only decides whether to
+// surface the Check button on a selection. The real validated/contradicted/no_proof
+// verdict always comes from the live 5-tool pipeline once you click Check.
+const HEALTH_KEYWORDS = [
+  "sugar","fat","saturated","cholesterol","protein","vitamin","mineral","supplement",
+  "diet","dietary","nutrition","nutrient","calorie","obesity","weight","overweight",
+  "cancer","heart","cardiovascular","cardiac","blood pressure","hypertension","diabetes",
+  "insulin","glucose","coffee","caffeine","alcohol","smoking","exercise","sleep","stress",
+  "gut","microbiome","probiotic","omega-3","omega3","fasting","sodium","salt","meat",
+  "vegetable","fruit","fiber","antioxidant","inflammation","immune","disease","health",
+  "medical","doctor","symptom","treatment","therapy","medicine","drug","vaccine","virus",
+  "wellness","metabolism","cortisol","hormone","cholesterol","stroke","obese","BMI",
+  "colorectal","hydration","processed food","artificial sweetener"
+];
+
+function looksHealthRelated(text) {
+  const t = text.toLowerCase();
+  return HEALTH_KEYWORDS.some(k => t.includes(k));
+}
+
+// ---------- Feed content ----------
+const AVATARS = ["🧑","👩","🧔","👨","👩‍🦱","🧑‍🦰","👨‍🦳","👩‍🦳","🧑‍🎓","👨‍💻","👩‍🍳","🧑‍🌾","👨‍🔬","👩‍⚕️","🧑‍🚀"];
+const AVATAR_BG = ["#ffe0e0","#e0f0ff","#e6ffe0","#fff3d6","#f0e0ff","#d6f7f0","#ffe8d6","#e0e8ff"];
+const NAMES = [
+  "Maya R.","Jordan K.","Alex P.","Sam T.","Priya N.","Chris D.","Riley B.","Morgan L.",
+  "Taylor S.","Jamie W.","Casey F.","Drew H.","Avery M.","Quinn O.","Reese G.","Skyler J.",
+  "Devon C.","Rowan V.","Emerson A.","Blair Y."
+];
+const TIMES = ["2m","5m","11m","18m","24m","31m","47m","1h","1h","2h","3h","4h","6h","8h","12h","1d","1d","2d"];
+
+const HEALTH_POSTS = [
+  "Saturated fat clogs your arteries and directly causes heart disease — cut it out completely.",
+  "Just read that saturated fat has basically no proven link to heart disease risk in the big meta-analyses. Wild.",
+  "Red meat and processed meat raise your colorectal cancer risk, it's not even debatable at this point.",
+  "My uncle says eating bacon every day is totally fine for your colon. Is that true??",
+  "Drinking coffee every day is linked to a LOWER risk of death from any cause. Coffee gang rise up ☕",
+  "Coffee is basically poison and shortens your lifespan, my nutritionist told me to quit cold turkey.",
+  "Sugary sodas are a direct cause of weight gain in both kids and adults, the RCTs back this up.",
+  "Diet soda doesn't cause weight gain at all, it's all in your head.",
+  "Popping vitamin D pills every morning prevents cancer AND heart disease, doctors just don't want you to know.",
+  "Vitamin D supplements did NOT reduce cancer or cardiovascular disease in the big VITAL trial, actually.",
+  "Artificial sweeteners are linked to higher cardiovascular disease risk in a huge French cohort study.",
+  "Zero-calorie sweeteners are perfectly heart-healthy, no real evidence against them.",
+  "Omega-3 supplements prevent heart attacks, everyone should be taking fish oil daily.",
+  "Fish oil pills do basically nothing for your heart attack risk according to the meta-analysis of 10 trials.",
+  "Cutting sodium out of your diet lowers blood pressure fast, the DASH trial proved it decades ago.",
+  "Salt intake has zero effect on blood pressure, that's an outdated myth.",
+  "A diverse gut microbiome is linked to better overall health outcomes, per the American Gut project.",
+  "Gut bacteria have literally nothing to do with your immune system, don't believe the hype.",
+  "Chocolate improves your eyesight if you eat it every day, my grandma swears by it.",
+  "Intermittent fasting fixes insulin resistance overnight, just skip breakfast.",
+  "Cold showers boost your metabolism by 300%, saw it on a wellness account.",
+  "Drinking a gallon of water a day flushes out all your toxins.",
+  "Standing desks reduce your cancer risk by half, according to some guy on Instagram.",
+  "Eating red meat twice a week meaningfully raises colorectal cancer incidence per prospective cohort data.",
+  "There's no real difference in heart disease risk between saturated fat and unsaturated fat, don't stress about it.",
+  "High coffee intake is associated with lower total mortality — the association held across cause-specific deaths too.",
+  "Vitamin D mega-doses are basically a free lunch for preventing chronic disease, take as much as you want.",
+  "Sugar-sweetened beverages are one of the strongest dietary predictors of weight gain in longitudinal studies.",
+  "Artificial sweeteners are 100% safe for your cardiovascular system, case closed.",
+  "Omega-3 fatty acid supplements meaningfully cut cardiovascular risk in high-dose prescription form only, per some trials.",
+  "A glass of red wine every night is basically heart medicine, my doctor says moderate drinking is protective.",
+  "The Global Burden of Disease data says there's no safe level of alcohol consumption for overall health, not even a little.",
+  "Taking beta-carotene supplements protects smokers from lung cancer, more antioxidants can't hurt right?",
+  "Beta-carotene supplements actually increased lung cancer risk in smokers in a major randomized trial, they had to stop it early.",
+  "Low-carb diets are scientifically proven to work way better than low-fat diets for weight loss, it's not even close.",
+  "The big JAMA weight-loss trial found low-carb and low-fat diets led to basically the same weight loss after a year.",
+  "Skipping breakfast is the number one cause of weight gain, breakfast is the most important meal of the day, period.",
+  "The meta-analysis of randomized trials found skipping breakfast did not cause weight gain, contrary to popular belief.",
+  "MSG in Chinese food definitely gives you headaches, that 'Chinese restaurant syndrome' thing is completely real.",
+  "The systematic review of double-blind studies found no solid evidence that MSG actually triggers headaches.",
+  "Taking probiotics every day prevents colds and respiratory infections, it's basically a natural immune shield.",
+  "Cochrane's review looked at whether probiotics actually reduce respiratory infections and it's more nuanced than the marketing claims."
+];
+
+const FILLER_POSTS = [
+  "Just watched the game, that overtime finish was insane 🏀",
+  "Can't believe the new season dropped and nobody told me",
+  "Currently stuck in traffic for the third hour in a row lol",
+  "Anyone else's WiFi been acting up all week?",
+  "Finally finished that book everyone's been talking about, 9/10",
+  "Rainy Monday vibes, coffee shop is packed today",
+  "My cat knocked my plant off the shelf again. classic.",
+  "New phone update completely changed the camera UI, not a fan",
+  "Weekend hike was gorgeous, added some photos to the album",
+  "Working from the airport lounge today, flight got delayed 2 hours",
+  "The new season finale had me literally yelling at my screen",
+  "Tried that new ramen place downtown, worth the wait honestly",
+  "Spent the whole afternoon reorganizing my closet, feels great",
+  "Concert tickets went on sale and sold out in like 4 minutes",
+  "Anyone have recommendations for a good beginner guitar?",
+  "My code finally compiled after 3 hours of debugging a missing semicolon",
+  "Team meeting got rescheduled again, third time this week",
+  "Found a great deal on flights for next month, booking it now",
+  "The traffic on the highway this morning was actually unreal",
+  "Just adopted a rescue dog, meet Biscuit 🐾",
+  "Deadline moved up by a week, this is going to be a fun sprint",
+  "Finally beat that boss fight after like 40 attempts",
+  "Group project chat has been silent for two days, send help",
+  "Repainted the living room this weekend, feeling very accomplished",
+  "The new album is on repeat, can't stop listening",
+  "Local farmers market had the best tomatoes I've had in years",
+  "Trying to learn chess properly this year, any app recommendations?",
+  "Power went out for like an hour during the storm last night",
+  "Finally organized all my browser tabs, only took me 6 months",
+  "Road trip playlist is officially locked in for the weekend",
+  "My plants are thriving this month, don't ask me how",
+  "Spent way too long picking a font for this presentation",
+  "The office coffee machine broke again, morale is low",
+  "Binge-watched an entire series in one sitting, no regrets",
+  "Finally got around to fixing that squeaky door hinge",
+  "New running shoes arrived, breaking them in this week",
+  "Someone parked in my spot again, third time this month",
+  "Trying a new recipe tonight, wish me luck",
+  "The bus was 20 minutes late again this morning",
+  "Cleaned out my inbox, down to zero unread for the first time ever",
+  "Weather app said sunny, it has been raining for 3 hours",
+  "Started learning a new language, day 1 of hopefully sticking with it",
+  "My headphones finally died after 5 loyal years of service",
+  "The line at the DMV was longer than the movie I watched after",
+  "Found my old yearbook while cleaning, so many memories",
+  "New keyboard arrived, the clicky sound is way too satisfying",
+  "Streaming service raised prices again, sigh",
+  "Finally fixed the leaky faucet myself, feeling handy today",
+  "That plot twist in the finale completely blindsided me",
+  "Garden tomatoes are finally ripening, harvest szn",
+  "Spent the evening building a puzzle with the family",
+  "My package got delivered to the wrong address again",
+  "The new update to the app removed the one feature I actually used",
+  "Just crossed 10k steps for the fifth day in a row",
+  "Meeting ran long again, missed my lunch window",
+  "Repainted my bike this weekend, looks brand new",
+  "The elevator's been out of service all week in our building",
+  "Finally tried that viral pasta recipe, it lived up to the hype",
+  "Spent the morning untangling a mess of charging cables",
+  "New neighbor moved in, seems friendly so far"
+];
+
+function buildFeed() {
+  const pool = [];
+  HEALTH_POSTS.forEach(t => pool.push(t));
+  FILLER_POSTS.forEach(t => pool.push(t));
+  // Pad toward "hundreds" by weaving filler + health content in a shuffled,
+  // repeated-but-reordered pass so the feed scrolls realistically without
+  // duplicating the exact same post back-to-back.
+  const rounds = 3;
+  const all = [];
+  for (let r = 0; r < rounds; r++) {
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    all.push(...shuffled);
+  }
+  return all;
+}
+
+const feedEl = document.getElementById("feed");
+const posts = buildFeed();
+
+posts.forEach((text, i) => {
+  const post = document.createElement("div");
+  post.className = "post";
+  const avatarIdx = i % AVATARS.length;
+  const name = NAMES[i % NAMES.length];
+  const time = TIMES[i % TIMES.length];
+  post.innerHTML = `
+    <div class="post-head">
+      <div class="avatar" style="background:${AVATAR_BG[avatarIdx % AVATAR_BG.length]}">${AVATARS[avatarIdx]}</div>
+      <div class="post-meta">
+        <div class="post-name">${name}</div>
+        <div class="post-time">${time} ago</div>
+      </div>
+    </div>
+    <div class="post-body">${text}</div>
+    <div class="post-actions"><span>💬 ${1 + (i * 7) % 40}</span><span>🔁 ${(i * 3) % 15}</span><span>❤️ ${5 + (i * 11) % 120}</span></div>
+  `;
+  feedEl.appendChild(post);
+});
+
+// ---------- Selection -> floating Check button ----------
+const floatBtn = document.getElementById("float-btn");
+let pendingText = "";
+
+function updateFloatButton() {
+  const sel = window.getSelection();
+  const text = sel.toString().trim();
+  if (!text || text.length < 4 || sel.rangeCount === 0) {
+    floatBtn.classList.remove("show");
+    return;
+  }
+  if (!looksHealthRelated(text)) {
+    floatBtn.classList.remove("show");
+    return;
+  }
+  const rect = sel.getRangeAt(0).getBoundingClientRect();
+  if (rect.width === 0 && rect.height === 0) {
+    floatBtn.classList.remove("show");
+    return;
+  }
+  pendingText = text;
+  floatBtn.style.top = `${window.scrollY + rect.top - 40}px`;
+  floatBtn.style.left = `${window.scrollX + rect.left}px`;
+  floatBtn.classList.add("show");
+}
+
+document.addEventListener("mouseup", (e) => {
+  if (e.target === floatBtn) return;
+  setTimeout(updateFloatButton, 0);
+});
+document.addEventListener("mousedown", (e) => {
+  if (e.target !== floatBtn) floatBtn.classList.remove("show");
+});
+
+// ---------- Drawer + result rendering ----------
+const drawer = document.getElementById("drawer");
+const drawerHeader = document.getElementById("drawer-header");
+const drawerBody = document.getElementById("drawer-body");
+const drawerCount = document.getElementById("drawer-count");
+let checkedCount = 0;
+let firstResult = true;
+
+drawerHeader.addEventListener("click", () => drawer.classList.toggle("open"));
+
+const VERDICT_LABEL = {
+  validated: "✅ Validated",
+  contradicted: "❌ Contradicted",
+  no_proof: "⚪ No proof found",
+};
+
+function escapeHtml(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+async function checkClaim(text) {
+  drawer.classList.add("open");
+  if (firstResult) {
+    drawerBody.innerHTML = "";
+    firstResult = false;
+  }
+  const card = document.createElement("div");
+  card.className = "result-card";
+  card.innerHTML = `
+    <div class="result-quote">"${escapeHtml(text)}"</div>
+    <span class="spinner"></span> Checking against the corpus...
+  `;
+  drawerBody.prepend(card);
+  checkedCount++;
+  drawerCount.textContent = checkedCount;
+
+  try {
+    const res = await fetch("/api/check", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ statement: text }),
+    });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+    const data = await res.json();
+
+    card.className = `result-card ${data.verdict}`;
+    const replayBadge = data.replayed
+      ? `<span class="replay-badge">⚡ instant replay — local muscle-memory cache</span>`
+      : "";
+    card.innerHTML = `
+      <div class="result-quote">"${escapeHtml(text)}"</div>
+      <div class="verdict-label">${VERDICT_LABEL[data.verdict] || data.verdict}</div>
+      <div class="explanation">${escapeHtml(data.explanation || "")}</div>
+      <div class="meta">
+        ${data.source ? `<span>📄 ${escapeHtml(data.source)}</span>` : ""}
+        <span>⏱ ${data.elapsed_seconds < 0.01 ? (data.elapsed_seconds * 1e6).toFixed(1) + "µs" : data.elapsed_seconds.toFixed(2) + "s"}</span>
+        ${replayBadge}
+      </div>
+    `;
+  } catch (err) {
+    card.className = "result-card no_proof";
+    card.innerHTML = `<div class="result-quote">"${escapeHtml(text)}"</div><div class="explanation">Error: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+floatBtn.addEventListener("click", () => {
+  floatBtn.classList.remove("show");
+  const text = pendingText;
+  window.getSelection().removeAllRanges();
+  if (text) checkClaim(text);
+});
+</script>
+</body>
+</html>

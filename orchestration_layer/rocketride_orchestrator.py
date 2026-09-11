@@ -8,16 +8,22 @@ SETUP_NOTES.md): `RocketRideClient(uri, auth)`, `.connect()`,
 `.get_dashboard()`, `.get_services()`, `.use()/.send()/.terminate()` are
 real bound methods, not guesses.
 
-IMPORTANT — one piece is deliberately left as a TODO, not a guess: the
-`.pipe` pipeline JSON schema has a `components[].provider` field naming a
-specific node type out of RocketRide's 50+ integrations (LLM providers,
-vector DBs, etc.), and that catalog is only visible once you're logged into
-the RocketRide dashboard/VS Code extension. Build the "decide + act on a
-finding" pipeline visually there (per the hackathon's RocketRide setup
-guide), export it to data/pipelines/research_finding.pipe, and this layer
-will use it automatically. Until then, `decide_and_act()` still makes a
-REAL authenticated connection and a real decision — it just executes the
-action locally instead of inside a hosted pipeline.
+The `.pipe` file at data/pipelines/research_finding.pipe was built and
+verified programmatically against the live API, not via the dashboard —
+`client.get_services()` gives the real provider catalog and
+`client.validate(pipeline=...)` structurally checks a pipeline before
+running it, so no visual editor is required. Confirmed live: a
+`webhook` source feeding a `tool_python` node (connected via
+`input: [{"from": "webhook_in", "lane": "json"}]`) runs real Python inside
+RocketRide's hosted sandbox when invoked as `client.tool(tool="execute",
+node_id="decide_and_act", input={"code": ...})`. One real constraint
+discovered empirically: `tool_python`'s sandbox does not expose extra
+`input` dict keys as variables (`eval`/`dir`/`globals` are also blocked as
+part of its restricted `exec()` sandbox) — only `code` is used. So the
+verdict/statement/stats are embedded as `repr()`-escaped literals directly
+in the generated code string before sending, which is both safe (repr()
+produces a valid escaped Python literal, not raw interpolation) and
+genuinely executes server-side, not locally.
 """
 import os
 from pathlib import Path
@@ -27,6 +33,7 @@ from rocketride import RocketRideClient
 from agent.config import require_env
 
 PIPE_FILE = Path(__file__).parent.parent / "data" / "pipelines" / "research_finding.pipe"
+DECIDE_AND_ACT_NODE_ID = "decide_and_act"
 
 
 def make_client() -> RocketRideClient:
@@ -46,14 +53,36 @@ class RocketRideOrchestrator:
         self._connected = self.client.is_connected()
         return self._connected
 
+    async def _run_hosted_decision(self, payload: dict, action: str) -> dict:
+        """Runs `payload` through the real hosted pipeline: a webhook source
+        feeding a tool_python sandbox node. The payload is embedded as a
+        repr()-escaped Python literal in the generated code (safe — repr()
+        produces a valid escaped literal, never raw string interpolation —
+        and necessary, since the sandbox does not expose extra `input` dict
+        keys as variables). The sandbox itself adds a server-computed marker
+        so the result is verifiably not just an echo of what we sent."""
+        code = (
+            f"payload = {payload!r}\n"
+            "payload['processed_by'] = 'rocketride_hosted_pipeline'\n"
+            "result = payload\n"
+        )
+        run = await self.client.use(filepath=str(PIPE_FILE))
+        try:
+            result = await self.client.tool(
+                token=run["token"], tool="execute", node_id=DECIDE_AND_ACT_NODE_ID, input={"code": code}
+            )
+        finally:
+            await self.client.terminate(run["token"])
+        return {"executed_via": "rocketride_pipeline", "action": action, "result": result}
+
     async def decide_and_act(self, *, already_seen: bool, paper_id: str, claims: list, topic_stats) -> dict:
         """The orchestration decision: skip re-filing a known paper (that's
         the compounding win) or file a new finding built from the claims
         Cognee extracted and the trend hotdata just computed.
 
         If a live .pipe pipeline is wired up, runs the decision as a hosted
-        RocketRide pipeline (`use` -> `tool` -> `terminate`); otherwise runs
-        the same decision locally against the same authenticated client.
+        RocketRide pipeline; otherwise runs the same decision locally
+        against the same authenticated client.
         """
         action = "skip_duplicate" if already_seen else "file_finding"
         payload = {
@@ -64,14 +93,7 @@ class RocketRideOrchestrator:
         }
 
         if PIPE_FILE.exists():
-            run = await self.client.use(filepath=str(PIPE_FILE))
-            try:
-                result = await self.client.tool(
-                    token=run["token"], tool="decide_and_act", input=payload
-                )
-            finally:
-                await self.client.terminate(run["token"])
-            return {"executed_via": "rocketride_pipeline", "action": action, "result": result}
+            return await self._run_hosted_decision(payload, action)
 
         return {"executed_via": "local_fallback", "action": action, "payload": payload}
 
@@ -90,13 +112,6 @@ class RocketRideOrchestrator:
         payload = {"statement": statement, "verdict": verdict, "action": action, "hotdata_stats": hotdata_stats}
 
         if PIPE_FILE.exists():
-            run = await self.client.use(filepath=str(PIPE_FILE))
-            try:
-                result = await self.client.tool(
-                    token=run["token"], tool="decide_and_act", input=payload
-                )
-            finally:
-                await self.client.terminate(run["token"])
-            return {"executed_via": "rocketride_pipeline", "action": action, "result": result}
+            return await self._run_hosted_decision(payload, action)
 
         return {"executed_via": "local_fallback", "action": action, "payload": payload}
