@@ -15,9 +15,6 @@ the hackathon's full 5-tool mandated stack, wired end-to-end and verified
 live against real APIs throughout (not mocked).
 
 
-
-<img width="422" height="902" alt="image" src="https://github.com/user-attachments/assets/6c8221f7-f157-4e85-83c7-3b06ea2b59ae" />
-
 ## Try it
 
 ```
