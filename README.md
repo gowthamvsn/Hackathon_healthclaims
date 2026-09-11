@@ -1,4 +1,8 @@
 # Self-Improving Research Assistant
+## Problem
+
+People see a lot of health claims in public websites and it is hard to validate them. So many of the users follow these unverified health statements as truths. So a product is built that finds the health claims from public websites, validates them against literature and also cites them. 
+
 
 Built for the **AWS Builder Loft SF** hackathon (Sep 11, 2026) — "Data and AI
 Hackathon: From Memory to Muscle Memory." This is the "Self-Improving
