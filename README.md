@@ -84,6 +84,3 @@ data/sample_papers/     original PDFs the corpus was extracted from
 data/pipelines/         research_finding.pipe — the real RocketRide pipeline definition
 ```
 
-See **ITERATION_LOG.md** for the full, timestamped build history — every
-integration confirmed against live APIs, every bug found and fixed
-documented as it happened, not written up after the fact.
