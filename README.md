@@ -77,5 +77,5 @@ Not a health claim - so it doesnt highlight.
 
 The below one is a health claim, so it shows the option to validate/contradict
 
-![Uploading image.png…]()
+<img width="422" height="892" alt="image" src="https://github.com/user-attachments/assets/7abc6986-32a2-43c2-9eac-e2ca83d7f3f0" />
 
