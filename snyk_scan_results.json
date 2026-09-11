@@ -1,0 +1,1283 @@
+{
+  "dependencyCount": 133,
+  "displayTargetFile": "requirements.txt",
+  "filesystemPolicy": false,
+  "filtered": {
+    "ignore": [],
+    "patch": []
+  },
+  "hasUnknownVersions": false,
+  "ignoreSettings": {
+    "adminOnly": false,
+    "autoApproveIgnores": false,
+    "disregardFilesystemIgnores": false,
+    "reasonRequired": false
+  },
+  "isPrivate": true,
+  "licensesPolicy": {
+    "orgLicenseRules": null,
+    "severities": null
+  },
+  "ok": false,
+  "org": "0abe055b-571e-45e4-a272-76841185f42a",
+  "packageManager": "pip",
+  "path": "D:\\hackthon_sept11\\research_assistant",
+  "policy": "",
+  "projectName": "research_assistant",
+  "remediation": {
+    "ignore": null,
+    "pin": {},
+    "unresolved": [
+      {
+        "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H/E:P",
+        "alternativeIds": [],
+        "creationTime": "2026-02-12T08:16:16.073779Z",
+        "credit": [
+          "Ethan Taebeom Kim"
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "cvssV3BaseScore": 7.6,
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:L",
+            "modificationTime": "2026-03-13T20:14:19.593508Z",
+            "severity": "high"
+          }
+        ],
+        "cvssScore": 7,
+        "cvssSources": [
+          {
+            "assigner": "Snyk",
+            "baseScore": 7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2026-09-10T14:06:12.657366Z",
+            "severity": "high",
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P"
+          },
+          {
+            "assigner": "Snyk",
+            "baseScore": 7.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-09-10T14:06:12.657366Z",
+            "severity": "high",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H/E:P"
+          },
+          {
+            "assigner": "Red Hat",
+            "baseScore": 7.6,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-03-13T20:14:19.593508Z",
+            "severity": "high",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:L"
+          }
+        ],
+        "description": "## Overview\n[diskcache](https://pypi.org/project/diskcache) is a Disk Cache -- Disk and file backed persistent cache.\n\nAffected versions of this package are vulnerable to Deserialization of Untrusted Data due to the unsafe use of the `pickle.load` function in the `Cache` class. An attacker can execute arbitrary code by writing malicious data to the cache directory and triggering deserialization when the application reads from the cache.\n\n**Note:**\nThis is only exploitable if the attacker has write access to the cache directory.\n\n## Details\n\nSerialization is a process of converting an object into a sequence of bytes which can be persisted to a disk or database or can be sent through streams. The reverse process of creating object from sequence of bytes is called deserialization. Serialization is commonly used for communication (sharing objects between multiple hosts) and persistence (store the object state in a file or a database). It is an integral part of popular protocols like _Remote Method Invocation (RMI)_, _Java Management Extension (JMX)_, _Java Messaging System (JMS)_, _Action Message Format (AMF)_, _Java Server Faces (JSF) ViewState_, etc.\n\n_Deserialization of untrusted data_ ([CWE-502](https://cwe.mitre.org/data/definitions/502.html)) is when the application deserializes untrusted data without sufficiently verifying that the resulting data will be valid, thus allowing the attacker to control the state or the flow of the execution.\n  \n## Remediation\nThere is no fixed version for `diskcache`.\n## References\n- [POC](https://github.com/EthanKim88/ethan-cve-disclosures/blob/main/CVE-2025-69872-DiskCache-Pickle-Deserialization.md)\n- [Vulnerable Code](https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py#L177)\n- [Vulnerable Code](https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py#L282)\n",
+        "disclosureTime": "2026-02-11T18:55:53.523000Z",
+        "epssDetails": {
+          "modelVersion": "v2026.06.15",
+          "percentile": "0.43096",
+          "probability": "0.00530"
+        },
+        "exploit": "Proof of Concept",
+        "exploitDetails": {
+          "maturityLevels": [
+            {
+              "format": "CVSSv3",
+              "level": "Proof of Concept",
+              "type": "secondary"
+            },
+            {
+              "format": "CVSSv4",
+              "level": "Proof of Concept",
+              "type": "primary"
+            }
+          ],
+          "sources": [
+            "Snyk"
+          ]
+        },
+        "fixedIn": [],
+        "from": [
+          "research_assistant@0.0.0",
+          "cognee@1.5.4",
+          "diskcache@5.6.3"
+        ],
+        "functions": [],
+        "functions_new": [],
+        "id": "SNYK-PYTHON-DISKCACHE-15268422",
+        "identifiers": {
+          "CVE": [
+            "CVE-2025-69872"
+          ],
+          "CWE": [
+            "CWE-502"
+          ],
+          "GHSA": [
+            "GHSA-w8v5-vhqr-4h9v"
+          ]
+        },
+        "insights": {
+          "triageAdvice": null
+        },
+        "isDisputed": false,
+        "isPatchable": false,
+        "isUpgradable": false,
+        "language": "python",
+        "malicious": false,
+        "modificationTime": "2026-09-10T14:06:12.657366Z",
+        "moduleName": "diskcache",
+        "name": "diskcache",
+        "packageManager": "pip",
+        "packageName": "diskcache",
+        "patches": [],
+        "proprietary": false,
+        "publicationTime": "2026-02-12T08:16:16.361706Z",
+        "references": [
+          {
+            "title": "POC",
+            "url": "https://github.com/EthanKim88/ethan-cve-disclosures/blob/main/CVE-2025-69872-DiskCache-Pickle-Deserialization.md"
+          },
+          {
+            "title": "Vulnerable Code",
+            "url": "https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py%23L177"
+          },
+          {
+            "title": "Vulnerable Code",
+            "url": "https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py%23L282"
+          }
+        ],
+        "semver": {
+          "vulnerable": [
+            "[0,]"
+          ]
+        },
+        "severity": "high",
+        "severityBasedOn": "CVSS",
+        "severityWithCritical": "high",
+        "socialTrendAlert": false,
+        "title": "Deserialization of Untrusted Data",
+        "upgradePath": [],
+        "version": "5.6.3"
+      },
+      {
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N/E:P",
+        "alternativeIds": [],
+        "creationTime": "2026-06-21T09:40:46.552580Z",
+        "credit": [
+          "Edward-x"
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "cvssV3BaseScore": 6.3,
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+            "modificationTime": "2026-06-21T13:29:38.896552Z",
+            "severity": "medium"
+          }
+        ],
+        "cvssScore": 7.1,
+        "cvssSources": [
+          {
+            "assigner": "Snyk",
+            "baseScore": 7.1,
+            "cvssVersion": "4.0",
+            "modificationTime": "2026-08-24T14:02:39.691695Z",
+            "severity": "high",
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P"
+          },
+          {
+            "assigner": "Snyk",
+            "baseScore": 6.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-08-24T14:02:39.691695Z",
+            "severity": "medium",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N/E:P"
+          },
+          {
+            "assigner": "NVD",
+            "baseScore": 6.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-06-21T13:29:38.896552Z",
+            "severity": "medium",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+          }
+        ],
+        "description": "## Overview\n[litellm](https://pypi.org/project/litellm) is a Library to easily interface with LLM API providers\n\nAffected versions of this package are vulnerable to Insufficient Session Expiration in the `authenticate_user` function. An attacker can gain unauthorized access or maintain access to sensitive information by exploiting session management flaws.\n## Remediation\nThere is no fixed version for `litellm`.\n## References\n- [GitHub Gist](https://gist.github.com/YLChen-007/39ed709ce322431658a05b951e91f278)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py#L217)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py#L347)\n",
+        "disclosureTime": "2026-06-21T02:39:58.000000Z",
+        "epssDetails": {
+          "modelVersion": "v2026.06.15",
+          "percentile": "0.32828",
+          "probability": "0.00400"
+        },
+        "exploit": "Proof of Concept",
+        "exploitDetails": {
+          "maturityLevels": [
+            {
+              "format": "CVSSv3",
+              "level": "Proof of Concept",
+              "type": "secondary"
+            },
+            {
+              "format": "CVSSv4",
+              "level": "Proof of Concept",
+              "type": "primary"
+            }
+          ],
+          "sources": [
+            "Snyk"
+          ]
+        },
+        "fixedIn": [],
+        "from": [
+          "research_assistant@0.0.0",
+          "cognee@1.5.4",
+          "litellm@1.96.2"
+        ],
+        "functions": [],
+        "functions_new": [],
+        "id": "SNYK-PYTHON-LITELLM-17391451",
+        "identifiers": {
+          "CVE": [
+            "CVE-2026-12772"
+          ],
+          "CWE": [
+            "CWE-613"
+          ]
+        },
+        "insights": {
+          "triageAdvice": null
+        },
+        "isDisputed": false,
+        "isPatchable": false,
+        "isUpgradable": false,
+        "language": "python",
+        "malicious": false,
+        "modificationTime": "2026-08-24T14:02:39.691695Z",
+        "moduleName": "litellm",
+        "name": "litellm",
+        "packageManager": "pip",
+        "packageName": "litellm",
+        "patches": [],
+        "proprietary": false,
+        "publicationTime": "2026-06-21T10:12:25.209850Z",
+        "references": [
+          {
+            "title": "GitHub Gist",
+            "url": "https://gist.github.com/YLChen-007/39ed709ce322431658a05b951e91f278"
+          },
+          {
+            "title": "Vulnerable Code",
+            "url": "https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py%23L217"
+          },
+          {
+            "title": "Vulnerable Code",
+            "url": "https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py%23L347"
+          }
+        ],
+        "semver": {
+          "vulnerable": [
+            "[0,]"
+          ]
+        },
+        "severity": "high",
+        "severityBasedOn": "CVSS",
+        "severityWithCritical": "high",
+        "socialTrendAlert": false,
+        "title": "Insufficient Session Expiration",
+        "upgradePath": [],
+        "version": "1.96.2"
+      },
+      {
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L/E:P",
+        "alternativeIds": [],
+        "creationTime": "2026-06-22T09:34:30.045532Z",
+        "credit": [
+          "Eric-c"
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "cvssV3BaseScore": 7.3,
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+            "modificationTime": "2026-06-21T13:29:40.387718Z",
+            "severity": "high"
+          }
+        ],
+        "cvssScore": 6.9,
+        "cvssSources": [
+          {
+            "assigner": "Snyk",
+            "baseScore": 6.9,
+            "cvssVersion": "4.0",
+            "modificationTime": "2026-08-24T14:02:39.693377Z",
+            "severity": "medium",
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P"
+          },
+          {
+            "assigner": "Snyk",
+            "baseScore": 7.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-08-24T14:02:39.693377Z",
+            "severity": "high",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L/E:P"
+          },
+          {
+            "assigner": "NVD",
+            "baseScore": 7.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-06-21T13:29:40.387718Z",
+            "severity": "high",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L"
+          }
+        ],
+        "description": "## Overview\n[litellm](https://pypi.org/project/litellm) is a Library to easily interface with LLM API providers\n\nAffected versions of this package are vulnerable to Missing Authentication for Critical Function in the `/sso/debug/login` and `/sso/debug/callback` endpoints in the SSO Debug Flow. An attacker can gain unauthorized access and potentially manipulate sensitive information by sending crafted requests to the affected endpoint.\n## Remediation\nThere is no fixed version for `litellm`.\n## References\n- [GitHub Gist](https://gist.github.com/YLChen-007/9b13c75a3a73187a4082cc6df0b100d3)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py#L4480)\n",
+        "disclosureTime": "2026-06-21T10:10:29.636000Z",
+        "epssDetails": {
+          "modelVersion": "v2026.06.15",
+          "percentile": "0.53634",
+          "probability": "0.00795"
+        },
+        "exploit": "Proof of Concept",
+        "exploitDetails": {
+          "maturityLevels": [
+            {
+              "format": "CVSSv3",
+              "level": "Proof of Concept",
+              "type": "secondary"
+            },
+            {
+              "format": "CVSSv4",
+              "level": "Proof of Concept",
+              "type": "primary"
+            }
+          ],
+          "sources": [
+            "Snyk"
+          ]
+        },
+        "fixedIn": [],
+        "from": [
+          "research_assistant@0.0.0",
+          "cognee@1.5.4",
+          "litellm@1.96.2"
+        ],
+        "functions": [],
+        "functions_new": [],
+        "id": "SNYK-PYTHON-LITELLM-17393717",
+        "identifiers": {
+          "CVE": [
+            "CVE-2026-12795"
+          ],
+          "CWE": [
+            "CWE-306"
+          ]
+        },
+        "insights": {
+          "triageAdvice": null
+        },
+        "isDisputed": false,
+        "isPatchable": false,
+        "isUpgradable": false,
+        "language": "python",
+        "malicious": false,
+        "modificationTime": "2026-08-24T14:02:39.693377Z",
+        "moduleName": "litellm",
+        "name": "litellm",
+        "packageManager": "pip",
+        "packageName": "litellm",
+        "patches": [],
+        "proprietary": false,
+        "publicationTime": "2026-06-22T09:34:30.244826Z",
+        "references": [
+          {
+            "title": "GitHub Gist",
+            "url": "https://gist.github.com/YLChen-007/9b13c75a3a73187a4082cc6df0b100d3"
+          },
+          {
+            "title": "Vulnerable Code",
+            "url": "https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py%23L4480"
+          }
+        ],
+        "semver": {
+          "vulnerable": [
+            "[0,]"
+          ]
+        },
+        "severity": "medium",
+        "severityBasedOn": "CVSS",
+        "severityWithCritical": "medium",
+        "socialTrendAlert": false,
+        "title": "Missing Authentication for Critical Function",
+        "upgradePath": [],
+        "version": "1.96.2"
+      },
+      {
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L/E:P",
+        "alternativeIds": [],
+        "creationTime": "2026-06-22T09:46:49.344394Z",
+        "credit": [
+          "Eric-c"
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "cvssV3BaseScore": 6.3,
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+            "modificationTime": "2026-06-21T13:29:40.803194Z",
+            "severity": "medium"
+          }
+        ],
+        "cvssScore": 5.3,
+        "cvssSources": [
+          {
+            "assigner": "Snyk",
+            "baseScore": 5.3,
+            "cvssVersion": "4.0",
+            "modificationTime": "2026-08-24T14:02:39.591427Z",
+            "severity": "medium",
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P"
+          },
+          {
+            "assigner": "Snyk",
+            "baseScore": 6.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-08-24T14:02:39.591427Z",
+            "severity": "medium",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L/E:P"
+          },
+          {
+            "assigner": "NVD",
+            "baseScore": 6.3,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-06-21T13:29:40.803194Z",
+            "severity": "medium",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+          }
+        ],
+        "description": "## Overview\n[litellm](https://pypi.org/project/litellm) is a Library to easily interface with LLM API providers\n\nAffected versions of this package are vulnerable to Insufficient Session Expiration in the `get_redirect_response_from_openid()` function of the SSO Authentication Flow process. An attacker can cause premature session termination by manipulating authentication responses remotely, potentially leading to unauthorized session expiration and disruption of user access.\n## Remediation\nThere is no fixed version for `litellm`.\n## References\n- [GitHub Gist](https://gist.github.com/YLChen-007/5fa8af12e1b183674d7ca96d852fb697)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py#L3231)\n",
+        "disclosureTime": "2026-06-21T11:11:42.153000Z",
+        "epssDetails": {
+          "modelVersion": "v2026.06.15",
+          "percentile": "0.44562",
+          "probability": "0.00570"
+        },
+        "exploit": "Proof of Concept",
+        "exploitDetails": {
+          "maturityLevels": [
+            {
+              "format": "CVSSv3",
+              "level": "Proof of Concept",
+              "type": "secondary"
+            },
+            {
+              "format": "CVSSv4",
+              "level": "Proof of Concept",
+              "type": "primary"
+            }
+          ],
+          "sources": [
+            "Snyk"
+          ]
+        },
+        "fixedIn": [],
+        "from": [
+          "research_assistant@0.0.0",
+          "cognee@1.5.4",
+          "litellm@1.96.2"
+        ],
+        "functions": [],
+        "functions_new": [],
+        "id": "SNYK-PYTHON-LITELLM-17393719",
+        "identifiers": {
+          "CVE": [
+            "CVE-2026-12796"
+          ],
+          "CWE": [
+            "CWE-613"
+          ]
+        },
+        "insights": {
+          "triageAdvice": null
+        },
+        "isDisputed": false,
+        "isPatchable": false,
+        "isUpgradable": false,
+        "language": "python",
+        "malicious": false,
+        "modificationTime": "2026-08-24T14:02:39.591427Z",
+        "moduleName": "litellm",
+        "name": "litellm",
+        "packageManager": "pip",
+        "packageName": "litellm",
+        "patches": [],
+        "proprietary": false,
+        "publicationTime": "2026-06-22T09:46:49.646955Z",
+        "references": [
+          {
+            "title": "GitHub Gist",
+            "url": "https://gist.github.com/YLChen-007/5fa8af12e1b183674d7ca96d852fb697"
+          },
+          {
+            "title": "Vulnerable Code",
+            "url": "https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py%23L3231"
+          }
+        ],
+        "semver": {
+          "vulnerable": [
+            "[0,]"
+          ]
+        },
+        "severity": "medium",
+        "severityBasedOn": "CVSS",
+        "severityWithCritical": "medium",
+        "socialTrendAlert": false,
+        "title": "Insufficient Session Expiration",
+        "upgradePath": [],
+        "version": "1.96.2"
+      },
+      {
+        "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "alternativeIds": [],
+        "creationTime": "2026-06-29T17:52:04.511420Z",
+        "credit": [
+          "Unknown"
+        ],
+        "cvssDetails": [],
+        "cvssScore": 9.2,
+        "cvssSources": [
+          {
+            "assigner": "Snyk",
+            "baseScore": 9.2,
+            "cvssVersion": "4.0",
+            "modificationTime": "2026-09-02T02:01:17.343939Z",
+            "severity": "critical",
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+          },
+          {
+            "assigner": "Snyk",
+            "baseScore": 8.1,
+            "cvssVersion": "3.1",
+            "modificationTime": "2026-09-02T02:01:17.343939Z",
+            "severity": "high",
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+          }
+        ],
+        "description": "## Overview\n[cognee](https://pypi.org/project/cognee) is a Cognee - is a library for enriching LLM context with a semantic layer for better understanding and reasoning.\n\nAffected versions of this package are vulnerable to Arbitrary Code Injection in the `notebook cell execution` API endpoint due to the use of the unsafe `exec` function without sandboxing, validation, or security controls. An attacker can execute arbitrary code on the server by sending a specially crafted POST request containing malicious Python code to the execution endpoint, potentially leading to full system compromise.\n## Remediation\nThere is no fixed version for `cognee`.\n## References\n- [Notion Advisory](https://www.notion.so/CVE-2026-31231-35d1e13931888178a963ef9efeb29113)\n",
+        "disclosureTime": "2026-05-12T19:25:30.386000Z",
+        "epssDetails": {
+          "modelVersion": "v2026.06.15",
+          "percentile": "0.45453",
+          "probability": "0.00635"
+        },
+        "exploit": "Not Defined",
+        "exploitDetails": {
+          "maturityLevels": [
+            {
+              "format": "CVSSv3",
+              "level": "Not Defined",
+              "type": "secondary"
+            },
+            {
+              "format": "CVSSv4",
+              "level": "Not Defined",
+              "type": "primary"
+            }
+          ],
+          "sources": []
+        },
+        "fixedIn": [],
+        "from": [
+          "research_assistant@0.0.0",
+          "cognee@1.5.4"
+        ],
+        "functions": [],
+        "functions_new": [],
+        "id": "SNYK-PYTHON-COGNEE-17675444",
+        "identifiers": {
+          "CVE": [
+            "CVE-2026-31231"
+          ],
+          "CWE": [
+            "CWE-94"
+          ]
+        },
+        "insights": {
+          "triageAdvice": null
+        },
+        "isDisputed": false,
+        "isPatchable": false,
+        "isUpgradable": false,
+        "language": "python",
+        "malicious": false,
+        "modificationTime": "2026-09-02T02:01:17.343939Z",
+        "moduleName": "cognee",
+        "name": "cognee",
+        "packageManager": "pip",
+        "packageName": "cognee",
+        "patches": [],
+        "proprietary": false,
+        "publicationTime": "2026-06-29T17:52:04.685999Z",
+        "references": [
+          {
+            "title": "Notion Advisory",
+            "url": "https://www.notion.so/CVE-2026-31231-35d1e13931888178a963ef9efeb29113"
+          }
+        ],
+        "semver": {
+          "vulnerable": [
+            "[0,]"
+          ]
+        },
+        "severity": "critical",
+        "severityBasedOn": "CVSS",
+        "severityWithCritical": "critical",
+        "socialTrendAlert": false,
+        "title": "Arbitrary Code Injection",
+        "upgradePath": [],
+        "version": "1.5.4"
+      }
+    ],
+    "upgrade": {}
+  },
+  "summary": "5 vulnerable dependency paths",
+  "targetFile": "",
+  "uniqueCount": 5,
+  "vulnerabilities": [
+    {
+      "CVSSv3": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H/E:P",
+      "alternativeIds": [],
+      "creationTime": "2026-02-12T08:16:16.073779Z",
+      "credit": [
+        "Ethan Taebeom Kim"
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "Red Hat",
+          "cvssV3BaseScore": 7.6,
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:L",
+          "modificationTime": "2026-03-13T20:14:19.593508Z",
+          "severity": "high"
+        }
+      ],
+      "cvssScore": 7,
+      "cvssSources": [
+        {
+          "assigner": "Snyk",
+          "baseScore": 7,
+          "cvssVersion": "4.0",
+          "modificationTime": "2026-09-10T14:06:12.657366Z",
+          "severity": "high",
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P"
+        },
+        {
+          "assigner": "Snyk",
+          "baseScore": 7.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-09-10T14:06:12.657366Z",
+          "severity": "high",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H/E:P"
+        },
+        {
+          "assigner": "Red Hat",
+          "baseScore": 7.6,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-03-13T20:14:19.593508Z",
+          "severity": "high",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:L"
+        }
+      ],
+      "description": "## Overview\n[diskcache](https://pypi.org/project/diskcache) is a Disk Cache -- Disk and file backed persistent cache.\n\nAffected versions of this package are vulnerable to Deserialization of Untrusted Data due to the unsafe use of the `pickle.load` function in the `Cache` class. An attacker can execute arbitrary code by writing malicious data to the cache directory and triggering deserialization when the application reads from the cache.\n\n**Note:**\nThis is only exploitable if the attacker has write access to the cache directory.\n\n## Details\n\nSerialization is a process of converting an object into a sequence of bytes which can be persisted to a disk or database or can be sent through streams. The reverse process of creating object from sequence of bytes is called deserialization. Serialization is commonly used for communication (sharing objects between multiple hosts) and persistence (store the object state in a file or a database). It is an integral part of popular protocols like _Remote Method Invocation (RMI)_, _Java Management Extension (JMX)_, _Java Messaging System (JMS)_, _Action Message Format (AMF)_, _Java Server Faces (JSF) ViewState_, etc.\n\n_Deserialization of untrusted data_ ([CWE-502](https://cwe.mitre.org/data/definitions/502.html)) is when the application deserializes untrusted data without sufficiently verifying that the resulting data will be valid, thus allowing the attacker to control the state or the flow of the execution.\n  \n## Remediation\nThere is no fixed version for `diskcache`.\n## References\n- [POC](https://github.com/EthanKim88/ethan-cve-disclosures/blob/main/CVE-2025-69872-DiskCache-Pickle-Deserialization.md)\n- [Vulnerable Code](https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py#L177)\n- [Vulnerable Code](https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py#L282)\n",
+      "disclosureTime": "2026-02-11T18:55:53.523000Z",
+      "epssDetails": {
+        "modelVersion": "v2026.06.15",
+        "percentile": "0.43096",
+        "probability": "0.00530"
+      },
+      "exploit": "Proof of Concept",
+      "exploitDetails": {
+        "maturityLevels": [
+          {
+            "format": "CVSSv3",
+            "level": "Proof of Concept",
+            "type": "secondary"
+          },
+          {
+            "format": "CVSSv4",
+            "level": "Proof of Concept",
+            "type": "primary"
+          }
+        ],
+        "sources": [
+          "Snyk"
+        ]
+      },
+      "fixedIn": [],
+      "from": [
+        "research_assistant@0.0.0",
+        "cognee@1.5.4",
+        "diskcache@5.6.3"
+      ],
+      "functions": [],
+      "functions_new": [],
+      "id": "SNYK-PYTHON-DISKCACHE-15268422",
+      "identifiers": {
+        "CVE": [
+          "CVE-2025-69872"
+        ],
+        "CWE": [
+          "CWE-502"
+        ],
+        "GHSA": [
+          "GHSA-w8v5-vhqr-4h9v"
+        ]
+      },
+      "insights": {
+        "triageAdvice": null
+      },
+      "isDisputed": false,
+      "isPatchable": false,
+      "isUpgradable": false,
+      "language": "python",
+      "malicious": false,
+      "modificationTime": "2026-09-10T14:06:12.657366Z",
+      "moduleName": "diskcache",
+      "name": "diskcache",
+      "packageManager": "pip",
+      "packageName": "diskcache",
+      "patches": [],
+      "proprietary": false,
+      "publicationTime": "2026-02-12T08:16:16.361706Z",
+      "references": [
+        {
+          "title": "POC",
+          "url": "https://github.com/EthanKim88/ethan-cve-disclosures/blob/main/CVE-2025-69872-DiskCache-Pickle-Deserialization.md"
+        },
+        {
+          "title": "Vulnerable Code",
+          "url": "https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py%23L177"
+        },
+        {
+          "title": "Vulnerable Code",
+          "url": "https://github.com/grantjenks/python-diskcache/blob/master/diskcache/core.py%23L282"
+        }
+      ],
+      "semver": {
+        "vulnerable": [
+          "[0,]"
+        ]
+      },
+      "severity": "high",
+      "severityBasedOn": "CVSS",
+      "severityWithCritical": "high",
+      "socialTrendAlert": false,
+      "title": "Deserialization of Untrusted Data",
+      "upgradePath": [],
+      "version": "5.6.3"
+    },
+    {
+      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N/E:P",
+      "alternativeIds": [],
+      "creationTime": "2026-06-21T09:40:46.552580Z",
+      "credit": [
+        "Edward-x"
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "NVD",
+          "cvssV3BaseScore": 6.3,
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+          "modificationTime": "2026-06-21T13:29:38.896552Z",
+          "severity": "medium"
+        }
+      ],
+      "cvssScore": 7.1,
+      "cvssSources": [
+        {
+          "assigner": "Snyk",
+          "baseScore": 7.1,
+          "cvssVersion": "4.0",
+          "modificationTime": "2026-08-24T14:02:39.691695Z",
+          "severity": "high",
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P"
+        },
+        {
+          "assigner": "Snyk",
+          "baseScore": 6.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-08-24T14:02:39.691695Z",
+          "severity": "medium",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N/E:P"
+        },
+        {
+          "assigner": "NVD",
+          "baseScore": 6.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-06-21T13:29:38.896552Z",
+          "severity": "medium",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+        }
+      ],
+      "description": "## Overview\n[litellm](https://pypi.org/project/litellm) is a Library to easily interface with LLM API providers\n\nAffected versions of this package are vulnerable to Insufficient Session Expiration in the `authenticate_user` function. An attacker can gain unauthorized access or maintain access to sensitive information by exploiting session management flaws.\n## Remediation\nThere is no fixed version for `litellm`.\n## References\n- [GitHub Gist](https://gist.github.com/YLChen-007/39ed709ce322431658a05b951e91f278)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py#L217)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py#L347)\n",
+      "disclosureTime": "2026-06-21T02:39:58.000000Z",
+      "epssDetails": {
+        "modelVersion": "v2026.06.15",
+        "percentile": "0.32828",
+        "probability": "0.00400"
+      },
+      "exploit": "Proof of Concept",
+      "exploitDetails": {
+        "maturityLevels": [
+          {
+            "format": "CVSSv3",
+            "level": "Proof of Concept",
+            "type": "secondary"
+          },
+          {
+            "format": "CVSSv4",
+            "level": "Proof of Concept",
+            "type": "primary"
+          }
+        ],
+        "sources": [
+          "Snyk"
+        ]
+      },
+      "fixedIn": [],
+      "from": [
+        "research_assistant@0.0.0",
+        "cognee@1.5.4",
+        "litellm@1.96.2"
+      ],
+      "functions": [],
+      "functions_new": [],
+      "id": "SNYK-PYTHON-LITELLM-17391451",
+      "identifiers": {
+        "CVE": [
+          "CVE-2026-12772"
+        ],
+        "CWE": [
+          "CWE-613"
+        ]
+      },
+      "insights": {
+        "triageAdvice": null
+      },
+      "isDisputed": false,
+      "isPatchable": false,
+      "isUpgradable": false,
+      "language": "python",
+      "malicious": false,
+      "modificationTime": "2026-08-24T14:02:39.691695Z",
+      "moduleName": "litellm",
+      "name": "litellm",
+      "packageManager": "pip",
+      "packageName": "litellm",
+      "patches": [],
+      "proprietary": false,
+      "publicationTime": "2026-06-21T10:12:25.209850Z",
+      "references": [
+        {
+          "title": "GitHub Gist",
+          "url": "https://gist.github.com/YLChen-007/39ed709ce322431658a05b951e91f278"
+        },
+        {
+          "title": "Vulnerable Code",
+          "url": "https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py%23L217"
+        },
+        {
+          "title": "Vulnerable Code",
+          "url": "https://github.com/BerriAI/litellm/blob/main/litellm/proxy/auth/login_utils.py%23L347"
+        }
+      ],
+      "semver": {
+        "vulnerable": [
+          "[0,]"
+        ]
+      },
+      "severity": "high",
+      "severityBasedOn": "CVSS",
+      "severityWithCritical": "high",
+      "socialTrendAlert": false,
+      "title": "Insufficient Session Expiration",
+      "upgradePath": [],
+      "version": "1.96.2"
+    },
+    {
+      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L/E:P",
+      "alternativeIds": [],
+      "creationTime": "2026-06-22T09:34:30.045532Z",
+      "credit": [
+        "Eric-c"
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "NVD",
+          "cvssV3BaseScore": 7.3,
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+          "modificationTime": "2026-06-21T13:29:40.387718Z",
+          "severity": "high"
+        }
+      ],
+      "cvssScore": 6.9,
+      "cvssSources": [
+        {
+          "assigner": "Snyk",
+          "baseScore": 6.9,
+          "cvssVersion": "4.0",
+          "modificationTime": "2026-08-24T14:02:39.693377Z",
+          "severity": "medium",
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P"
+        },
+        {
+          "assigner": "Snyk",
+          "baseScore": 7.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-08-24T14:02:39.693377Z",
+          "severity": "high",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L/E:P"
+        },
+        {
+          "assigner": "NVD",
+          "baseScore": 7.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-06-21T13:29:40.387718Z",
+          "severity": "high",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L"
+        }
+      ],
+      "description": "## Overview\n[litellm](https://pypi.org/project/litellm) is a Library to easily interface with LLM API providers\n\nAffected versions of this package are vulnerable to Missing Authentication for Critical Function in the `/sso/debug/login` and `/sso/debug/callback` endpoints in the SSO Debug Flow. An attacker can gain unauthorized access and potentially manipulate sensitive information by sending crafted requests to the affected endpoint.\n## Remediation\nThere is no fixed version for `litellm`.\n## References\n- [GitHub Gist](https://gist.github.com/YLChen-007/9b13c75a3a73187a4082cc6df0b100d3)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py#L4480)\n",
+      "disclosureTime": "2026-06-21T10:10:29.636000Z",
+      "epssDetails": {
+        "modelVersion": "v2026.06.15",
+        "percentile": "0.53634",
+        "probability": "0.00795"
+      },
+      "exploit": "Proof of Concept",
+      "exploitDetails": {
+        "maturityLevels": [
+          {
+            "format": "CVSSv3",
+            "level": "Proof of Concept",
+            "type": "secondary"
+          },
+          {
+            "format": "CVSSv4",
+            "level": "Proof of Concept",
+            "type": "primary"
+          }
+        ],
+        "sources": [
+          "Snyk"
+        ]
+      },
+      "fixedIn": [],
+      "from": [
+        "research_assistant@0.0.0",
+        "cognee@1.5.4",
+        "litellm@1.96.2"
+      ],
+      "functions": [],
+      "functions_new": [],
+      "id": "SNYK-PYTHON-LITELLM-17393717",
+      "identifiers": {
+        "CVE": [
+          "CVE-2026-12795"
+        ],
+        "CWE": [
+          "CWE-306"
+        ]
+      },
+      "insights": {
+        "triageAdvice": null
+      },
+      "isDisputed": false,
+      "isPatchable": false,
+      "isUpgradable": false,
+      "language": "python",
+      "malicious": false,
+      "modificationTime": "2026-08-24T14:02:39.693377Z",
+      "moduleName": "litellm",
+      "name": "litellm",
+      "packageManager": "pip",
+      "packageName": "litellm",
+      "patches": [],
+      "proprietary": false,
+      "publicationTime": "2026-06-22T09:34:30.244826Z",
+      "references": [
+        {
+          "title": "GitHub Gist",
+          "url": "https://gist.github.com/YLChen-007/9b13c75a3a73187a4082cc6df0b100d3"
+        },
+        {
+          "title": "Vulnerable Code",
+          "url": "https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py%23L4480"
+        }
+      ],
+      "semver": {
+        "vulnerable": [
+          "[0,]"
+        ]
+      },
+      "severity": "medium",
+      "severityBasedOn": "CVSS",
+      "severityWithCritical": "medium",
+      "socialTrendAlert": false,
+      "title": "Missing Authentication for Critical Function",
+      "upgradePath": [],
+      "version": "1.96.2"
+    },
+    {
+      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L/E:P",
+      "alternativeIds": [],
+      "creationTime": "2026-06-22T09:46:49.344394Z",
+      "credit": [
+        "Eric-c"
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "NVD",
+          "cvssV3BaseScore": 6.3,
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+          "modificationTime": "2026-06-21T13:29:40.803194Z",
+          "severity": "medium"
+        }
+      ],
+      "cvssScore": 5.3,
+      "cvssSources": [
+        {
+          "assigner": "Snyk",
+          "baseScore": 5.3,
+          "cvssVersion": "4.0",
+          "modificationTime": "2026-08-24T14:02:39.591427Z",
+          "severity": "medium",
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P"
+        },
+        {
+          "assigner": "Snyk",
+          "baseScore": 6.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-08-24T14:02:39.591427Z",
+          "severity": "medium",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L/E:P"
+        },
+        {
+          "assigner": "NVD",
+          "baseScore": 6.3,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-06-21T13:29:40.803194Z",
+          "severity": "medium",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+        }
+      ],
+      "description": "## Overview\n[litellm](https://pypi.org/project/litellm) is a Library to easily interface with LLM API providers\n\nAffected versions of this package are vulnerable to Insufficient Session Expiration in the `get_redirect_response_from_openid()` function of the SSO Authentication Flow process. An attacker can cause premature session termination by manipulating authentication responses remotely, potentially leading to unauthorized session expiration and disruption of user access.\n## Remediation\nThere is no fixed version for `litellm`.\n## References\n- [GitHub Gist](https://gist.github.com/YLChen-007/5fa8af12e1b183674d7ca96d852fb697)\n- [Vulnerable Code](https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py#L3231)\n",
+      "disclosureTime": "2026-06-21T11:11:42.153000Z",
+      "epssDetails": {
+        "modelVersion": "v2026.06.15",
+        "percentile": "0.44562",
+        "probability": "0.00570"
+      },
+      "exploit": "Proof of Concept",
+      "exploitDetails": {
+        "maturityLevels": [
+          {
+            "format": "CVSSv3",
+            "level": "Proof of Concept",
+            "type": "secondary"
+          },
+          {
+            "format": "CVSSv4",
+            "level": "Proof of Concept",
+            "type": "primary"
+          }
+        ],
+        "sources": [
+          "Snyk"
+        ]
+      },
+      "fixedIn": [],
+      "from": [
+        "research_assistant@0.0.0",
+        "cognee@1.5.4",
+        "litellm@1.96.2"
+      ],
+      "functions": [],
+      "functions_new": [],
+      "id": "SNYK-PYTHON-LITELLM-17393719",
+      "identifiers": {
+        "CVE": [
+          "CVE-2026-12796"
+        ],
+        "CWE": [
+          "CWE-613"
+        ]
+      },
+      "insights": {
+        "triageAdvice": null
+      },
+      "isDisputed": false,
+      "isPatchable": false,
+      "isUpgradable": false,
+      "language": "python",
+      "malicious": false,
+      "modificationTime": "2026-08-24T14:02:39.591427Z",
+      "moduleName": "litellm",
+      "name": "litellm",
+      "packageManager": "pip",
+      "packageName": "litellm",
+      "patches": [],
+      "proprietary": false,
+      "publicationTime": "2026-06-22T09:46:49.646955Z",
+      "references": [
+        {
+          "title": "GitHub Gist",
+          "url": "https://gist.github.com/YLChen-007/5fa8af12e1b183674d7ca96d852fb697"
+        },
+        {
+          "title": "Vulnerable Code",
+          "url": "https://github.com/BerriAI/litellm/blob/6437b812beb0267c49ab85b52f25ef1293f4b9f1/litellm/proxy/management_endpoints/ui_sso.py%23L3231"
+        }
+      ],
+      "semver": {
+        "vulnerable": [
+          "[0,]"
+        ]
+      },
+      "severity": "medium",
+      "severityBasedOn": "CVSS",
+      "severityWithCritical": "medium",
+      "socialTrendAlert": false,
+      "title": "Insufficient Session Expiration",
+      "upgradePath": [],
+      "version": "1.96.2"
+    },
+    {
+      "CVSSv3": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "alternativeIds": [],
+      "creationTime": "2026-06-29T17:52:04.511420Z",
+      "credit": [
+        "Unknown"
+      ],
+      "cvssDetails": [],
+      "cvssScore": 9.2,
+      "cvssSources": [
+        {
+          "assigner": "Snyk",
+          "baseScore": 9.2,
+          "cvssVersion": "4.0",
+          "modificationTime": "2026-09-02T02:01:17.343939Z",
+          "severity": "critical",
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+        },
+        {
+          "assigner": "Snyk",
+          "baseScore": 8.1,
+          "cvssVersion": "3.1",
+          "modificationTime": "2026-09-02T02:01:17.343939Z",
+          "severity": "high",
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "description": "## Overview\n[cognee](https://pypi.org/project/cognee) is a Cognee - is a library for enriching LLM context with a semantic layer for better understanding and reasoning.\n\nAffected versions of this package are vulnerable to Arbitrary Code Injection in the `notebook cell execution` API endpoint due to the use of the unsafe `exec` function without sandboxing, validation, or security controls. An attacker can execute arbitrary code on the server by sending a specially crafted POST request containing malicious Python code to the execution endpoint, potentially leading to full system compromise.\n## Remediation\nThere is no fixed version for `cognee`.\n## References\n- [Notion Advisory](https://www.notion.so/CVE-2026-31231-35d1e13931888178a963ef9efeb29113)\n",
+      "disclosureTime": "2026-05-12T19:25:30.386000Z",
+      "epssDetails": {
+        "modelVersion": "v2026.06.15",
+        "percentile": "0.45453",
+        "probability": "0.00635"
+      },
+      "exploit": "Not Defined",
+      "exploitDetails": {
+        "maturityLevels": [
+          {
+            "format": "CVSSv3",
+            "level": "Not Defined",
+            "type": "secondary"
+          },
+          {
+            "format": "CVSSv4",
+            "level": "Not Defined",
+            "type": "primary"
+          }
+        ],
+        "sources": []
+      },
+      "fixedIn": [],
+      "from": [
+        "research_assistant@0.0.0",
+        "cognee@1.5.4"
+      ],
+      "functions": [],
+      "functions_new": [],
+      "id": "SNYK-PYTHON-COGNEE-17675444",
+      "identifiers": {
+        "CVE": [
+          "CVE-2026-31231"
+        ],
+        "CWE": [
+          "CWE-94"
+        ]
+      },
+      "insights": {
+        "triageAdvice": null
+      },
+      "isDisputed": false,
+      "isPatchable": false,
+      "isUpgradable": false,
+      "language": "python",
+      "malicious": false,
+      "modificationTime": "2026-09-02T02:01:17.343939Z",
+      "moduleName": "cognee",
+      "name": "cognee",
+      "packageManager": "pip",
+      "packageName": "cognee",
+      "patches": [],
+      "proprietary": false,
+      "publicationTime": "2026-06-29T17:52:04.685999Z",
+      "references": [
+        {
+          "title": "Notion Advisory",
+          "url": "https://www.notion.so/CVE-2026-31231-35d1e13931888178a963ef9efeb29113"
+        }
+      ],
+      "semver": {
+        "vulnerable": [
+          "[0,]"
+        ]
+      },
+      "severity": "critical",
+      "severityBasedOn": "CVSS",
+      "severityWithCritical": "critical",
+      "socialTrendAlert": false,
+      "title": "Arbitrary Code Injection",
+      "upgradePath": [],
+      "version": "1.5.4"
+    }
+  ]
+}

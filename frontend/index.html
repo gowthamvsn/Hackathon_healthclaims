@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Self-Improving Research Assistant</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --card-bg: #ffffff;
+    --border: #e2e5ea;
+    --text: #1a1d23;
+    --text-muted: #6b7280;
+    --validated: #1a7f4b;
+    --validated-bg: #e6f6ed;
+    --contradicted: #b3261e;
+    --contradicted-bg: #fdecea;
+    --no_proof: #5b6270;
+    --no_proof-bg: #eef0f3;
+    --accent: #3454d1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px 20px 80px;
+  }
+  .container { max-width: 780px; margin: 0 auto; }
+  header { margin-bottom: 28px; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  .subtitle { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+  .stack-note {
+    font-size: 12px; color: var(--text-muted); margin-top: 10px;
+    padding: 10px 12px; background: #eef1fb; border-radius: 8px;
+  }
+  .statements { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .statement-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .statement-card:hover { border-color: var(--accent); box-shadow: 0 1px 6px rgba(52,84,209,0.12); }
+  .statement-text { font-size: 15px; line-height: 1.4; }
+  .check-btn {
+    flex-shrink: 0;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .check-btn:disabled { opacity: 0.5; cursor: default; }
+  .result {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    display: none;
+  }
+  .result.show { display: block; }
+  .result.validated { background: var(--validated-bg); color: var(--validated); }
+  .result.contradicted { background: var(--contradicted-bg); color: var(--contradicted); }
+  .result.no_proof { background: var(--no_proof-bg); color: var(--no_proof); }
+  .verdict-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+  .explanation { color: var(--text); font-size: 14px; }
+  .meta {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .replay-badge {
+    background: #fff3cd;
+    color: #8a6100;
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-weight: 700;
+  }
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  footer { margin-top: 40px; font-size: 12px; color: var(--text-muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🔬 Self-Improving Research Assistant</h1>
+    <div class="subtitle">
+      Click a health claim below to check it against a corpus of real published research —
+      the answer is <strong>validated</strong>, <strong>contradicted</strong>, or
+      <strong>no proof found</strong>, with the actual paper cited.
+    </div>
+    <div class="stack-note">
+      Each check runs the full stack live: Cognee (graph recall) → HydraDB (related-paper recall)
+      → hotdata.dev (trend logging) → RocketRide (decide + act) → Rote (caches the whole run —
+      check the same claim twice and watch the second one return instantly).
+    </div>
+  </header>
+
+  <div class="statements" id="statements"></div>
+
+  <footer>Self-Improving Research Assistant — Data &amp; AI Hackathon, AWS Builder Loft SF</footer>
+</div>
+
+<script>
+const STATEMENTS = [
+  "Saturated fat increases the risk of heart disease.",
+  "Drinking coffee is linked to lower risk of death.",
+  "Eating red and processed meat increases colorectal cancer risk.",
+  "Vitamin D supplements prevent cancer and heart disease.",
+  "Sugar-sweetened beverages cause weight gain.",
+  "Omega-3 supplements prevent heart attacks.",
+  "Eating chocolate improves eyesight.",
+];
+
+const VERDICT_LABEL = {
+  validated: "✅ Validated",
+  contradicted: "❌ Contradicted",
+  no_proof: "⚪ No proof found",
+};
+
+const statementsEl = document.getElementById("statements");
+
+STATEMENTS.forEach((text, i) => {
+  const card = document.createElement("div");
+  card.className = "statement-card";
+  card.innerHTML = `
+    <div style="flex:1">
+      <div class="statement-text">${text}</div>
+      <div class="result" id="result-${i}"></div>
+    </div>
+    <button class="check-btn" id="btn-${i}">Check</button>
+  `;
+  statementsEl.appendChild(card);
+
+  const btn = card.querySelector(`#btn-${i}`);
+  const resultEl = card.querySelector(`#result-${i}`);
+
+  btn.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>';
+    resultEl.className = "result";
+
+    try {
+      const t0 = performance.now();
+      const res = await fetch("/api/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ statement: text }),
+      });
+      const data = await res.json();
+      const clientMs = (performance.now() - t0).toFixed(0);
+
+      resultEl.className = `result show ${data.verdict}`;
+      const replayBadge = data.replayed
+        ? `<span class="replay-badge">⚡ replayed from Rote — instant</span>`
+        : "";
+      resultEl.innerHTML = `
+        <div class="verdict-label">${VERDICT_LABEL[data.verdict] || data.verdict}</div>
+        <div class="explanation">${data.explanation || ""}</div>
+        <div class="meta">
+          ${data.source ? `<span>📄 ${data.source}</span>` : ""}
+          <span>⏱ ${data.elapsed_seconds < 0.01 ? (data.elapsed_seconds * 1e6).toFixed(1) + "µs" : data.elapsed_seconds.toFixed(2) + "s"}</span>
+          ${replayBadge}
+        </div>
+      `;
+    } catch (err) {
+      resultEl.className = "result show no_proof";
+      resultEl.innerHTML = `<div class="explanation">Error: ${err.message}</div>`;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Check again";
+    }
+  });
+});
+</script>
+</body>
+</html>

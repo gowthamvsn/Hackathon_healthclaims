@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+*.log
+.cognee/
+data/cache/
+data/hydra_local/
+benchmark/results/

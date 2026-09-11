@@ -1,0 +1,416 @@
+{
+  "a5a99f2dbab93a90": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "saturated fat increases the risk of heart disease."
+    ],
+    "result": {
+      "statement": "Saturated fat increases the risk of heart disease.",
+      "verdict": "contradicted",
+      "explanation": "A meta\u2011analysis of 21 prospective cohort studies (347,747 participants) found that higher saturated fat intake was not associated with increased coronary heart disease risk (pooled RR\u202f=\u202f1.07, 95\u202f%\u202fCI\u202f0.96\u20131.19, P\u202f=\u202f0.22).",
+      "source": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease",
+      "related_papers": [
+        {
+          "title": "Meta-analysis of prospective cohort studies evaluating the association of saturated fat with cardiovascular disease.",
+          "relevancy_score": 0.8038819799297164
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "Saturated fat increases the risk of heart disease.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T18:30:09Z"
+  },
+  "8747959012659d43": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "drinking coffee is linked to lower risk of death."
+    ],
+    "result": {
+      "statement": "Drinking coffee is linked to lower risk of death.",
+      "verdict": "validated",
+      "explanation": "Multivariate\u2011adjusted hazard ratios showed a modest inverse trend with coffee intake (e.g., HR\u202f0.88 for 4\u20115 cups/day in men and 0.84 in women, P<0.001), indicating lower mortality.",
+      "source": "Association of coffee drinking with total and cause-specific mortality",
+      "related_papers": [
+        {
+          "title": "Association of coffee drinking with total and cause-specific mortality.",
+          "relevancy_score": 0.6498853709345843
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "file_validated_claim",
+        "payload": {
+          "statement": "Drinking coffee is linked to lower risk of death.",
+          "verdict": "validated",
+          "action": "file_validated_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "validated",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T18:31:52Z"
+  },
+  "5f8ea2890e93a74d": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "eating chocolate improves eyesight."
+    ],
+    "result": {
+      "statement": "Eating chocolate improves eyesight.",
+      "verdict": "no_proof",
+      "explanation": "The provided dataset includes no studies evaluating chocolate consumption and its effect on eyesight.",
+      "source": null,
+      "related_papers": [
+        {
+          "title": "Artificial sweeteners and risk of cardiovascular diseases: results from the prospective NutriNet-Sant\u00e9 cohort.",
+          "relevancy_score": 0.4663821350300176
+        },
+        {
+          "title": "Red and processed meat and colorectal cancer incidence: meta-analysis of prospective studies.",
+          "relevancy_score": 0.44143394958599563
+        },
+        {
+          "title": "Association of coffee drinking with total and cause-specific mortality.",
+          "relevancy_score": 0.4045093215460331
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "no_proof",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "log_unverified_claim",
+        "payload": {
+          "statement": "Eating chocolate improves eyesight.",
+          "verdict": "no_proof",
+          "action": "log_unverified_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "no_proof",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T18:32:11Z"
+  },
+  "176a5cb68fa17e08": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "eating red and processed meat increases colorectal cancer risk."
+    ],
+    "result": {
+      "statement": "Eating red and processed meat increases colorectal cancer risk.",
+      "verdict": "validated",
+      "explanation": "The meta\u2011analysis found a summary relative risk of 1.22 (95%\u202fCI\u202f1.11\u20131.34) for highest versus lowest red and processed meat intake, indicating higher colorectal cancer risk.",
+      "source": "Red and Processed Meat and Colorectal Cancer Incidence: Meta-Analysis of Prospective Studies",
+      "related_papers": [
+        {
+          "title": "Red and processed meat and colorectal cancer incidence: meta-analysis of prospective studies.",
+          "relevancy_score": 0.8867180400210084
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "file_validated_claim",
+        "payload": {
+          "statement": "Eating red and processed meat increases colorectal cancer risk.",
+          "verdict": "validated",
+          "action": "file_validated_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "validated",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:02:04Z"
+  },
+  "67d94382e3f3cc50": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "vitamin d supplements prevent cancer and heart disease."
+    ],
+    "result": {
+      "statement": "Vitamin D supplements prevent cancer and heart disease.",
+      "verdict": "contradicted",
+      "explanation": "In the VITAL randomized trial, vitamin D supplementation did not reduce the risk of invasive cancer (hazard ratio\u202f0.96, 95%\u202fCI\u202f0.88\u20131.06) or major cardiovascular events (hazard ratio\u202f0.97, 95%\u202fCI\u202f0.85\u20131.12).",
+      "source": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease",
+      "related_papers": [
+        {
+          "title": "Vitamin D Supplements and Prevention of Cancer and Cardiovascular Disease.",
+          "relevancy_score": 0.8004318894438625
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            1,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "Vitamin D supplements prevent cancer and heart disease.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                1,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:02:27Z"
+  },
+  "e36ba30e28a19e9e": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "sugar-sweetened beverages cause weight gain."
+    ],
+    "result": {
+      "statement": "Sugar-sweetened beverages cause weight gain.",
+      "verdict": "validated",
+      "explanation": "Each additional 12\u2011oz serving per day of sugar\u2011sweetened beverages was associated with a 0.42\u202fkg higher body weight in adults (cohort) and adding SSBs in RCTs increased weight by 0.83\u202fkg.",
+      "source": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials",
+      "related_papers": [
+        {
+          "title": "Sugar-sweetened beverage consumption and weight gain in children and adults: a systematic review and meta-analysis of prospective cohort studies and randomized controlled trials.",
+          "relevancy_score": 0.9247974922894127
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "validated",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "file_validated_claim",
+        "payload": {
+          "statement": "Sugar-sweetened beverages cause weight gain.",
+          "verdict": "validated",
+          "action": "file_validated_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "validated",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:02:53Z"
+  },
+  "dd5e70e5074bee00": {
+    "task_name": "check_claim",
+    "key_parts": [
+      "omega-3 supplements prevent heart attacks."
+    ],
+    "result": {
+      "statement": "Omega-3 supplements prevent heart attacks.",
+      "verdict": "contradicted",
+      "explanation": "A meta\u2011analysis of 10 large randomized trials (77\u202f917 participants) found omega\u20113 supplementation had no significant effect on non\u2011fatal myocardial infarction (RR\u202f=\u202f0.97; 99\u202f%\u202fCI\u202f0.87\u20111.08; P\u202f=\u202f0.40).",
+      "source": "Associations of Omega-3 Fatty Acid Supplement Use With Cardiovascular Disease Risks: Meta\u2011analysis of 10 Trials Involving 77\u202f917 Individuals",
+      "related_papers": [
+        {
+          "title": "Associations of Omega-3 Fatty Acid Supplement Use With Cardiovascular Disease Risks: Meta-analysis of 10 Trials Involving 77 917 Individuals.",
+          "relevancy_score": 0.8275916672718617
+        }
+      ],
+      "hotdata_stats": {
+        "columns": [
+          "topic",
+          "claim_count",
+          "avg_confidence"
+        ],
+        "rows": [
+          [
+            "contradicted",
+            2,
+            1.0
+          ]
+        ],
+        "row_count": 1
+      },
+      "rocketride_action": {
+        "executed_via": "local_fallback",
+        "action": "flag_contradicted_claim",
+        "payload": {
+          "statement": "Omega-3 supplements prevent heart attacks.",
+          "verdict": "contradicted",
+          "action": "flag_contradicted_claim",
+          "hotdata_stats": {
+            "columns": [
+              "topic",
+              "claim_count",
+              "avg_confidence"
+            ],
+            "rows": [
+              [
+                "contradicted",
+                2,
+                1.0
+              ]
+            ],
+            "row_count": 1
+          }
+        }
+      }
+    },
+    "recorded_at": "2026-09-11T19:03:14Z"
+  }
+}
