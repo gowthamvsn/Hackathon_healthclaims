@@ -13,7 +13,7 @@ get measurably faster/cheaper on repeat runs.
 
 | Layer | Tool | Role |
 |---|---|---|
-| Memory construction | **Cognee.ai** | ECL pipeline — extracts claims/sources into a knowledge graph |
+| Memory construction | **Cognee.ai** | ECL pipeline - extracts claims/sources into a knowledge graph |
 | Memory storage & serving | **HydraDB** | Durable, cross-session home for that graph; relationship-aware recall |
 | Live query & analytics | **hotdata.dev** | Ad-hoc SQL over extracted-claim metadata |
 | Motion / orchestration | **RocketRide.ai** | Decides + executes the next action on a finding |
@@ -33,6 +33,9 @@ python benchmark\compounding_proof.py
 Modiqo Rote is a separate local CLI (not pip-installable) — install it from
 github.com/modiqo/rote-releases per the hackathon setup checklist. The
 Python code works with or without it; see `muscle_memory/rote_hook.py`.
+
+
+the public URL: https://play.modiqo.ai/gowtham-healthclaims/health-claim-check@0.1.0 
 
 ## Repo layout
 
